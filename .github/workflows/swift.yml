@@ -6,13 +6,15 @@ jobs:
   build:
 
     runs-on: macos
+
+# build also for iOS, not possible (yet)? .-.
         
     steps:
     - uses: actions/checkout@v1
     - name: Build
       run: swift build -v
     - name: Run tests
-      run: swift test -v --enable-code-coverage;  ls .build/debug/codecov;
+      run: swift test -v --enable-code-coverage
     - name: Generate lcov file
       run: |
         xcrun llvm-cov export -format=lcov \

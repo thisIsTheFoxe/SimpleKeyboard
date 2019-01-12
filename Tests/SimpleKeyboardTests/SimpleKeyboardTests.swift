@@ -2,16 +2,39 @@ import XCTest
 import SwiftUI
 @testable import SimpleKeyboard
 
+#if canImport(UIKit)
+import UIKit
+#elseif canImport(AppKit)
+import AppKit
+#endif
+
+
 
 final class SimpleKeyboardTests: XCTestCase {
     
     @ObservedObject var tester = InputTester()
     
-    
     override func setUp() {
         tester = InputTester()
     }
 
+    func test_native_input(){
+        #if canImport(UIKit)
+        let textField = UITextField()
+        tester.settings.changeTextInput(to: textField)
+        
+         tester.settings.text = "UIKit"
+        XCTAssertEqual(textField.text, "UIKit")
+        #elseif canImport(AppKit)
+        let textField = NSTextField()
+        tester.settings.changeTextInput(to: textField)
+        
+        tester.settings.text = "AppKit"
+        XCTAssertEqual(textField.stringValue, "AppKit")
+        #endif
+        
+    }
+    
     func test_lnaguages_not_empty(){
         for l in Language.allCases {
             XCTAssertFalse(l.rows.isEmpty)
@@ -123,6 +146,7 @@ final class SimpleKeyboardTests: XCTestCase {
     }
     
     static var allTests = [
+        ("test_native_input", test_native_input),
         ("test_lnaguages_not_empty", test_lnaguages_not_empty),
         ("test_icons", test_icons),
         ("test_standard_keyboard_init", test_standard_keyboard_init),

@@ -10,7 +10,7 @@ import SwiftUI
 
 
 public protocol SimpleKeyboardInput {
-    var currentText: String { get }
+    var currentText: String {  get }
     mutating func replaceAll(with text: String)
 }
 
