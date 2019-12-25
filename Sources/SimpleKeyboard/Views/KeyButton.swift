@@ -17,7 +17,7 @@ struct KeyButton: View {
         Button(action: {
             self.text.append(self.letter)
         }) {
-            Text(letter)
+            Text(letter).font(.system(size: 20))//.padding()
         }
     }
 }

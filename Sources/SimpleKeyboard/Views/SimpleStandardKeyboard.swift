@@ -10,13 +10,20 @@ import SwiftUI
 @available(iOS 13.0, *)
 public struct SimpleStandardKeyboard: View {
     let language: Language
-    let showSpace: Bool = true
+    let showSpace: Bool
     //    let showShift: Bool = true
     //    let showSpecialKeys: Bool = true
     
     @Binding var text: String
-    @Binding var isShown : Bool
     var action: ()->()
+    
+    public init(language: Language, showSpace: Bool = true, text: Binding<String>, action: @escaping ()->()){
+        self.language = language
+        self.showSpace = showSpace
+        self._text = text
+        //        self._isShown = isShown
+        self.action = action
+    }
     
     public var body: some View {
         VStack{
@@ -35,7 +42,7 @@ public struct SimpleStandardKeyboard: View {
                     SpaceKeyButton(text: $text)
                 }
                 ActionKeyButton(icon: .done) {
-                    self.isShown.toggle()
+                    //                    self.isShown.toggle()
                     self.action()
                 }
             }

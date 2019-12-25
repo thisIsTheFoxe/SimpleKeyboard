@@ -6,7 +6,7 @@
 //
 
 import Foundation
-enum Language{
+public enum Language{
     case english, german
     
     var rows: [[String]] {
