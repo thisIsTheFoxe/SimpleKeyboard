@@ -4,7 +4,13 @@ import SwiftUI
 public struct SimpleKeyboard: View {
     var keys: [[String]]
     @Binding var text: String
-    @Binding var isShown : Bool
+    var action : ()->()
+    
+    public init(keys: [[String]], text: Binding<String>, action: @escaping ()->()){
+        self.key = keys
+        self._text = text
+        self.action = action
+    }
     
     public var body: some View {
         VStack{
@@ -17,7 +23,7 @@ public struct SimpleKeyboard: View {
             }
             HStack{
                 ActionKeyButton(icon: .done) {
-                    self.isShown.toggle()
+                    action
                 }
             }
         }.padding(.vertical, 5).background(Color.gray.opacity(0.2))
