@@ -7,7 +7,7 @@ public struct SimpleKeyboard: View {
     var action : ()->()
     
     public init(keys: [[String]], text: Binding<String>, action: @escaping ()->()){
-        self.key = keys
+        self.keys = keys
         self._text = text
         self.action = action
     }
@@ -23,7 +23,7 @@ public struct SimpleKeyboard: View {
             }
             HStack{
                 ActionKeyButton(icon: .done) {
-                    action
+                    self.action()
                 }
             }
         }.padding(.vertical, 5).background(Color.gray.opacity(0.2))

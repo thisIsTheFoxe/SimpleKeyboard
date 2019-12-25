@@ -15,10 +15,12 @@ public struct SimpleStandardKeyboard: View {
     //    let showSpecialKeys: Bool = true
     
     @Binding var text: String
+    var includeNumbers: Bool
     var action: ()->()
     
-    public init(language: Language, showSpace: Bool = true, text: Binding<String>, action: @escaping ()->()){
+    public init(language: Language, withNumbers includeNumbers: Bool, showSpace: Bool = true, text: Binding<String>, action: @escaping ()->()){
         self.language = language
+        self.includeNumbers = includeNumbers
         self.showSpace = showSpace
         self._text = text
         //        self._isShown = isShown
@@ -26,7 +28,14 @@ public struct SimpleStandardKeyboard: View {
     }
     
     public var body: some View {
-        VStack(spacing: 15){
+        VStack(spacing: 10){
+            if includeNumbers{
+                HStack(spacing: 10){
+                    ForEach(Language.numbers, id: \.self){ key in
+                        KeyButton(text: self.$text, letter: key)
+                    }
+                }
+            }
             ForEach(0..<language.rows.count, id: \.self){ i in
                 HStack(spacing: 10){
                     if i == 2{
