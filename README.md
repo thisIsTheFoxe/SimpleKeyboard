@@ -7,9 +7,10 @@ This  project includes a `SimpleKeyboard` that takes a custom 2D-list of Strings
 The `SimpleStandardKeyboard` provides a default implementation for some languages and a few more default settings.
 
 ## Usage
-To eventually get a `UIViewController` it's super easy to use `UIHostingController`. Depending on the needs one can use the keyboards in a larger SwiftUI enviroment with a `Text` that will act as the TextField. 
-Or one can choose to only display the keyboard with a the text input coming from a UIKit enviroment. To manage the transition with all the Bindings, there is the `KeyboardSettings: Observable`. 
+Depending on the needs one can use the keyboards in a larger SwiftUI enviroment with a `Text` that will act as the TextField. 
+Or one can choose to only display the keyboard with a the text input coming from a UIKit enviroment. To eventually get a `UIViewController` one has to use a `UIHostingController`. To manage the transition with all the Bindings, there is the `KeyboardSettings: Observable`. 
 
+### Use SimpleKeyboard with UIKit
 Here is an example implementation from one of my projects:
 ```swift
 struct MyKeyboardMaker{
