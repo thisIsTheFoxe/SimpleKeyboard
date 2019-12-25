@@ -17,7 +17,8 @@ struct KeyButton: View {
         Button(action: {
             self.text.append(self.letter)
         }) {
-            Text(letter).font(.system(size: 20))//.padding()
+            Text(letter).foregroundColor(.primary).font(.system(size: 25)).padding(5).frame(minWidth: 27)
+                .background(Color.gray.opacity(0.5)).cornerRadius(5)
         }
     }
 }
@@ -31,7 +32,9 @@ struct SpaceKeyButton: View {
         Button(action: {
             self.text.append(" ")
         }) {
-            Text("space")
+            Text("space").padding().padding(.horizontal, 50)
+                .foregroundColor(.primary)
+                .background(Color.gray.opacity(0.5)).cornerRadius(7)
         }
     }
 }
@@ -43,9 +46,15 @@ struct DeleteKeyButton: View {
     
     var body: some View{
         Button(action: {
+            guard !self.text.isEmpty else { return }
             _ = self.text.removeLast()
         }) {
             Image(systemName: "delete.left")
+                .foregroundColor(.primary)
+                .imageScale(.large)
+                .font(Font.headline.weight(.semibold))
+                .padding()
+                .background(Color.gray.opacity(0.5)).cornerRadius(7)
         }
     }
 }
@@ -60,7 +69,9 @@ struct ActionKeyButton: View {
         Button(action: {
             self.action()
         }) {
-            icon.view
+            icon.view.padding()
+                .foregroundColor(.white)
+            .background(Color.blue).cornerRadius(7)
         }
     }
 }
@@ -76,5 +87,4 @@ enum Icon {
         case .go: return AnyView(Text("Go!"))
         }
     }
-    
 }

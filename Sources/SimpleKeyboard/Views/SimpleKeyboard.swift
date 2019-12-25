@@ -20,6 +20,6 @@ public struct SimpleKeyboard: View {
                     self.isShown.toggle()
                 }
             }
-        }
+        }.padding(.vertical, 5).background(Color.gray.opacity(0.2))
     }
 }

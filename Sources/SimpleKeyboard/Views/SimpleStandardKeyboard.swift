@@ -26,26 +26,31 @@ public struct SimpleStandardKeyboard: View {
     }
     
     public var body: some View {
-        VStack{
+        VStack(spacing: 15){
             ForEach(0..<language.rows.count, id: \.self){ i in
-                HStack{
+                HStack(spacing: 10){
+                    if i == 2{
+                        Spacer()
+                    }
                     ForEach(self.language.rows[i], id: \.self){ key in
                         KeyButton(text: self.$text, letter: key)
                     }
                     if i == 2{
-                        DeleteKeyButton(text: self.$text)
+                        DeleteKeyButton(text: self.$text).padding(.trailing)
                     }
                 }
             }
             HStack{
                 if showSpace{
+                    Spacer()
                     SpaceKeyButton(text: $text)
+                    Spacer()
                 }
                 ActionKeyButton(icon: .done) {
                     //                    self.isShown.toggle()
                     self.action()
-                }
+                }.padding(.trailing, 5)
             }
-        }
+        }.padding(.vertical, 5).background(Color.gray.opacity(0.2))
     }
 }
