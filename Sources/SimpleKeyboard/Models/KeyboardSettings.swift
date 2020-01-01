@@ -8,19 +8,27 @@
 import UIKit
 import Combine
 
+extension UITextInput{
+    func replaceALl(with text: String){
+        let b = beginningOfDocument
+        let e = endOfDocument
+        replace(textRange(from: b, to: e)!, withText: text)
+    }
+}
+
 @available(iOS 13.0, *)
 public class KeyboardSettings: ObservableObject {
     public var text: String = "" {
         didSet{
-            textInput.text = text
+            textInput.replaceALl(with: text)
         }
     }
 
     public var language: Language
-    public var textInput: UITextField
+    public var textInput: UITextInput
     public var action: ()->()
 
-    public init(language: Language, textInput: UITextField, action: @escaping ()->()){
+    public init(language: Language, textInput: UITextInput, action: @escaping ()->()){
         self.textInput = textInput
         self.language = language
         self.action = action
