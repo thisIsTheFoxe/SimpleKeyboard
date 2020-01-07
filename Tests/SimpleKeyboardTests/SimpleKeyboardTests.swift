@@ -2,23 +2,22 @@ import XCTest
 @testable import SimpleKeyboard
 import SwiftUI
 
-@available(iOS 13.0, *)
 final class SimpleKeyboardTests: XCTestCase {
     
-    @ObservedObject var s = KeyboardSettings(language: .english, textInput: UITextField()) {
+    @ObservedObject var s = KeyboardSettings(language: .english, textInput: Binding.constant("")) {
         return
     }
     
     func create_settings(){
         
-        let input = UITextField()
+        let input = Binding.constant("")
         
         let s = KeyboardSettings(language: .english, textInput: input) {
             return
         }
         
         s.text = "abc"
-        XCTAssertEqual(input.text, s.text)
+        XCTAssertEqual(input.wrappedValue, s.text)
     }
     
     func has_10_numbers(){
@@ -28,7 +27,7 @@ final class SimpleKeyboardTests: XCTestCase {
     func standard_keyboard_action_works(){
         let action = XCTestExpectation(description: "StdKeyboardAction")
                 
-        let standard = SimpleStandardKeyboard(settings: .constant(KeyboardSettings(language: .english, textInput: UITextField()) {
+        let standard = SimpleStandardKeyboard(settings: .constant(KeyboardSettings(language: .english, textInput: Binding.constant("")) {
             action.fulfill()
         }))
         standard.settings.action?()
@@ -50,6 +49,7 @@ final class SimpleKeyboardTests: XCTestCase {
     }
     
     static var allTests = [
+        ("create_settings", create_settings),
         ("create_settings", create_settings),
         ("has_10_numbers", has_10_numbers),
         ("standard_keyboard_action_works", standard_keyboard_action_works),

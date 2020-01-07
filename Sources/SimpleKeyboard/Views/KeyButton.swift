@@ -17,11 +17,10 @@ struct ShiftKeyButton: View {
             #if os(macOS)
             return AnyView(Text(isUpperCase! ? "Up": "lw"))
             #else
-            return AnyView(Image(systemName: isUpperCase ? "shift.fill" : "shift"))
+            return AnyView(Image(systemName: isUpperCase ? "shift.fill" : "shift").imageScale(.large))
             #endif
         })
             .foregroundColor(.primary)
-        .imageScale(.large)
         .font(Font.headline.weight(.semibold))
         .padding()
         .background(Color.gray.opacity(0.5))
