@@ -7,7 +7,6 @@
 
 import SwiftUI
 
-@available(iOS 13.0, *)
 public struct SimpleStandardKeyboard: View {
     let language: Language
     let showSpace: Bool

@@ -1,22 +1,34 @@
 //
-//  File.swift
+//  KeyboardSettings.swift
 //  
 //
 //  Created by Henrik Storch on 12/25/19.
 //
 
-import UIKit
 import Combine
 
-extension UITextInput{
-    func replaceALl(with text: String){
+public protocol SimpleKeyboardInput {
+    func replaceALl(with text: String)
+}
+
+#if canImport(AppKit)
+import AppKit
+extension NSTextField: SimpleKeyboardInput{
+    public func replaceALl(with text: String){
+        stringValue = text
+    }
+}
+#elseif canImport(UIKit)
+import UIKit
+extension UITextInput where Self: SimpleKeyboardInput{
+    public func replaceALl(with text: String){
         let b = beginningOfDocument
         let e = endOfDocument
         replace(textRange(from: b, to: e)!, withText: text)
     }
 }
+#endif
 
-@available(iOS 13.0, *)
 public class KeyboardSettings: ObservableObject {
     public var text: String = "" {
         didSet{
@@ -25,10 +37,10 @@ public class KeyboardSettings: ObservableObject {
     }
 
     public var language: Language
-    public var textInput: UITextInput
+    public var textInput: SimpleKeyboardInput
     public var action: ()->()
 
-    public init(language: Language, textInput: UITextInput, action: @escaping ()->()){
+    public init(language: Language, textInput: SimpleKeyboardInput, action: @escaping ()->()){
         self.textInput = textInput
         self.language = language
         self.action = action

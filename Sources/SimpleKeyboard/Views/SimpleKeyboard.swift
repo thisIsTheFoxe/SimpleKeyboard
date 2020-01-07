@@ -1,6 +1,5 @@
 import SwiftUI
 
-@available(iOS 13.0, *)
 public struct SimpleKeyboard: View {
     var keys: [[String]]
     @Binding var text: String

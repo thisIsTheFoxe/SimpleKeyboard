@@ -7,11 +7,9 @@
 
 import SwiftUI
 
-@available(iOS 13.0, *)
 struct KeyButton: View {
     @Binding var text: String
     var letter: String
-//    @Binding var input...
     
     var body: some View{
         Button(action: {
@@ -23,10 +21,8 @@ struct KeyButton: View {
     }
 }
 
-@available(iOS 13.0, *)
 struct SpaceKeyButton: View {
     @Binding var text: String
-//    @Binding var input...
     
     var body: some View{
         Button(action: {
@@ -39,31 +35,31 @@ struct SpaceKeyButton: View {
     }
 }
 
-@available(iOS 13.0, *)
 struct DeleteKeyButton: View {
     @Binding var text: String
-//    @Binding var input...
     
     var body: some View{
-        Button(action: {
+        AnyView(Button(action: {
             guard !self.text.isEmpty else { return }
             _ = self.text.removeLast()
-        }) {
-            Image(systemName: "delete.left")
+        }) { () -> AnyView in 
+            #if os(macOS)
+            return AnyView(Text("⌫"))
+            #else
+            return AnyView(Image(systemName: "delete.left")
                 .foregroundColor(.primary)
                 .imageScale(.large)
                 .font(Font.headline.weight(.semibold))
                 .padding()
-                .background(Color.gray.opacity(0.5)).cornerRadius(7)
-        }
+                .background(Color.gray.opacity(0.5)).cornerRadius(7))
+            #endif
+        })
     }
 }
 
-@available(iOS 13.0, *)
 struct ActionKeyButton: View {
     @State var icon: Icon
     var action: ()->()
-//    @Binding var input...
     
     var body: some View{
         Button(action: {
@@ -76,14 +72,18 @@ struct ActionKeyButton: View {
     }
 }
 
-@available(iOS 13.0, *)
 enum Icon {
     case done, search, go
     
     var view: some View{
         switch self{
         case .done: return AnyView(Text("Done!"))
-        case .search: return AnyView(Image(systemName: "magnifyingglass"))
+        case .search:
+            #if os(macOS)
+            return AnyView(Text("Search"))
+            #else
+            return AnyView(Image(systemName: "magnifyingglass"))
+            #endif
         case .go: return AnyView(Text("Go!"))
         }
     }
