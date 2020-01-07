@@ -6,9 +6,19 @@
 //
 
 import Combine
+import SwiftUI
+
 
 public protocol SimpleKeyboardInput {
-    func replaceALl(with text: String)
+    mutating func replaceALl(with text: String)
+}
+
+extension Binding: SimpleKeyboardInput where Value == String {
+    
+    public mutating func replaceALl(with text: String){
+        self.wrappedValue = text
+        print("mutating func replaceALl = "+self.wrappedValue)
+    }
 }
 
 #if canImport(AppKit)
@@ -18,13 +28,13 @@ extension NSTextField: SimpleKeyboardInput{
         stringValue = text
     }
 }
-#elseif canImport(UIKit)
+#endif
+
+#if canImport(UIKit)
 import UIKit
-extension UITextInput where Self: SimpleKeyboardInput{
+extension UITextField : SimpleKeyboardInput{
     public func replaceALl(with text: String){
-        let b = beginningOfDocument
-        let e = endOfDocument
-        replace(textRange(from: b, to: e)!, withText: text)
+        self.text = text
     }
 }
 #endif
@@ -32,17 +42,39 @@ extension UITextInput where Self: SimpleKeyboardInput{
 public class KeyboardSettings: ObservableObject {
     public var text: String = "" {
         didSet{
-            textInput.replaceALl(with: text)
+            textInput?.replaceALl(with: text)
+        }
+    }
+    
+    var language: Language
+    
+    public var textInput: SimpleKeyboardInput?
+    public var action: (()->())?
+    
+    //        self._isShown = isShown
+    var showNumbers: Bool
+    var showSpace: Bool
+    
+    ///`nil` mean there is no need to switch, so there will be no shift-key
+    var isUpperCase: Bool?{
+        willSet{
+            print("ay!")
+            objectWillChange.send()
         }
     }
 
-    public var language: Language
-    public var textInput: SimpleKeyboardInput
-    public var action: ()->()
-
-    public init(language: Language, textInput: SimpleKeyboardInput, action: @escaping ()->()){
+    ///`textInput` is not needed / does nothing when working with SwiftUI, for that use the `changeTextInput(to:)` method
+    public init(language: Language, textInput: SimpleKeyboardInput?, showNumbers: Bool = false, showSpace: Bool = false, isUpperCase: Bool? = nil, action: (()->())? = nil){
         self.textInput = textInput
         self.language = language
         self.action = action
+        self.showNumbers = showNumbers
+        self.showSpace = showSpace
+        self.isUpperCase = isUpperCase
+    }
+    
+    func changeTextInput(to newInput: SimpleKeyboardInput){
+        self.textInput = newInput
+        print("changed Input")
     }
 }

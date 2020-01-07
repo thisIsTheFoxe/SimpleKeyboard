@@ -8,55 +8,52 @@
 import SwiftUI
 
 public struct SimpleStandardKeyboard: View {
-    let language: Language
-    let showSpace: Bool
-    //    let showShift: Bool = true
-    //    let showSpecialKeys: Bool = true
+    @Binding var settings: KeyboardSettings
     
-    @Binding var text: String
-    var includeNumbers: Bool
-    var action: ()->()
-    
-    public init(language: Language, withNumbers includeNumbers: Bool, showSpace: Bool = true, text: Binding<String>, action: @escaping ()->()){
-        self.language = language
-        self.includeNumbers = includeNumbers
-        self.showSpace = showSpace
-        self._text = text
-        //        self._isShown = isShown
-        self.action = action
+    public init(settings: Binding<KeyboardSettings>, bindingStringOverride: Binding<String>? = nil){
+        self._settings = settings
+
+        if let overrideStr = bindingStringOverride {
+            self.settings.changeTextInput(to: overrideStr)
+        }
     }
+    
     
     public var body: some View {
         VStack(spacing: 10){
-            if includeNumbers{
+            if settings.showNumbers {
                 HStack(spacing: 10){
                     ForEach(Language.numbers, id: \.self){ key in
-                        KeyButton(text: self.$text, letter: key)
+                        KeyButton(text: self.$settings.text, isUpperCase: .constant(false), letter: key)
                     }
                 }
             }
-            ForEach(0..<language.rows.count, id: \.self){ i in
+            ForEach(0..<settings.language.rows.count, id: \.self){ i in
                 HStack(spacing: 10){
                     if i == 2{
                         Spacer()
+                        if self.settings.isUpperCase != nil {
+                            ShiftKeyButton(isUpperCase: self.$settings.isUpperCase).padding(.leading)
+                        }
                     }
-                    ForEach(self.language.rows[i], id: \.self){ key in
-                        KeyButton(text: self.$text, letter: key)
+                    ForEach(self.settings.language.rows[i], id: \.self){ key in
+                        KeyButton(text: self.$settings.text, isUpperCase: self.$settings.isUpperCase, letter: key)
                     }
                     if i == 2{
-                        DeleteKeyButton(text: self.$text).padding(.trailing)
+                        DeleteKeyButton(text: self.$settings.text).padding(.trailing)
+                        Spacer()
                     }
                 }
             }
             HStack{
-                if showSpace{
+                if settings.showSpace{
                     Spacer()
-                    SpaceKeyButton(text: $text)
+                    SpaceKeyButton(text: $settings.text)
                     Spacer()
                 }
                 ActionKeyButton(icon: .done) {
                     //                    self.isShown.toggle()
-                    self.action()
+                    self.settings.action?()
                 }.padding(.trailing, 5)
             }
         }.padding(.vertical, 5).background(Color.gray.opacity(0.2))

@@ -25,13 +25,13 @@ final class SimpleKeyboardTests: XCTestCase {
         XCTAssertEqual(Language.numbers.count, 10)
     }
     
-    func standard_keyboard_works(){
+    func standard_keyboard_action_works(){
         let action = XCTestExpectation(description: "StdKeyboardAction")
-        
-        let standard = SimpleStandardKeyboard(language: .english, withNumbers: false, showSpace: false, text: $s.text) {
+                
+        let standard = SimpleStandardKeyboard(settings: .constant(KeyboardSettings(language: .english, textInput: UITextField()) {
             action.fulfill()
-        }
-        standard.action()
+        }))
+        standard.settings.action?()
         
         wait(for: [action], timeout: 2)
         
@@ -52,7 +52,7 @@ final class SimpleKeyboardTests: XCTestCase {
     static var allTests = [
         ("create_settings", create_settings),
         ("has_10_numbers", has_10_numbers),
-        ("standard_keyboard_works", standard_keyboard_works),
+        ("standard_keyboard_action_works", standard_keyboard_action_works),
         ("standard_keyboard_works", simple_keyboard_works),
     ]
 }
