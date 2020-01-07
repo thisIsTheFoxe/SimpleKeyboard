@@ -9,7 +9,7 @@ jobs:
     
     strategy:
         matrix:
-          destination: ['platform=iOS Simulator,OS=12.2,name=iPhone X', 'platform=tvOS Simulator,OS=12.2,name=Apple TV 4K']
+          destination: ['platform=iOS Simulator,OS=13.3,name=iPhone X', 'platform=tvOS Simulator,OS=13.3,name=Apple TV 4K']
     
     steps:
     - uses: actions/checkout@v1
@@ -21,7 +21,7 @@ jobs:
       run: 
           swift package generate-xcodeproj;ls;
           xcodebuild build -sdk iphoneos -scheme 'SimpleKeyboard-Package';
-          xcodebuild test -destination "${destination}" -scheme 'SimpleKeyboard-Package' -enableCodeCoverage YES;
+          xcodebuild test -destination 'platform=iOS Simulator,OS=13.3,name=iPhone X' -scheme 'SimpleKeyboard-Package' -enableCodeCoverage YES;
     - name: Codecov
       uses: codecov/codecov-action@v1.0.5
       with:
