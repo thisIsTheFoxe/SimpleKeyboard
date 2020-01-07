@@ -1,9 +1,9 @@
 import SwiftUI
 
-@available(iOS 13.0, *)
 public struct SimpleKeyboard: View {
     var keys: [[String]]
     @Binding var text: String
+    @State var isUpperCase: Bool? = nil
     var action : ()->()
     
     public init(keys: [[String]], text: Binding<String>, action: @escaping ()->()){
@@ -17,7 +17,7 @@ public struct SimpleKeyboard: View {
             ForEach(keys, id: \.self){ row in
                 HStack{
                     ForEach(row, id: \.self){ key in
-                        KeyButton(text: self.$text, letter: key)
+                        KeyButton(text: self.$text, isUpperCase: self.$isUpperCase,  letter: key)
                     }
                 }
             }
