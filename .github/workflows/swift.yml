@@ -18,11 +18,11 @@ jobs:
     - name: Run tests
       run: swift test -v
     - name: Build and test
-      run: 
-          cd SimpleKeyboard
-          swift package generate-xcodeproj
-          xcodebuild build -sdk iphoneos -scheme 'SimpleKeyboard-Package'
-          xcodebuild test -destination "${destination}" -scheme 'SimpleKeyboard-Package' -enableCodeCoverage YES
+      run: ls;
+          cd SimpleKeyboard;
+          swift package generate-xcodeproj;
+          xcodebuild build -sdk iphoneos -scheme 'SimpleKeyboard-Package';
+          xcodebuild test -destination "${destination}" -scheme 'SimpleKeyboard-Package' -enableCodeCoverage YES;
     - name: Codecov
       uses: codecov/codecov-action@v1.0.5
       with:
