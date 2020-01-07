@@ -42,6 +42,12 @@ public struct SimpleStandardKeyboard: View {
         }
     }
     
+    fileprivate func rowFor(_ index: Int) -> ForEach<[String], String, KeyButton> {
+        return ForEach(self.settings.language.rows[index], id: \.self){ key in
+            KeyButton(text: self.$settings.text, isUpperCase: self.$settings.isUpperCase, letter: key)
+        }
+    }
+    
     public var body: some View {
         VStack(spacing: 10){
             if settings.showNumbers {
@@ -55,9 +61,7 @@ public struct SimpleStandardKeyboard: View {
                             ShiftKeyButton(isUpperCase: self.$settings.isUpperCase).padding(.leading)
                         }
                     }
-                    ForEach(self.settings.language.rows[i], id: \.self){ key in
-                        KeyButton(text: self.$settings.text, isUpperCase: self.$settings.isUpperCase, letter: key)
-                    }
+                    self.rowFor(i)
                     if i == 2{
                         DeleteKeyButton(text: self.$settings.text).padding(.trailing)
                         Spacer()
