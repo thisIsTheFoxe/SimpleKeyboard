@@ -12,10 +12,10 @@ public struct SimpleStandardKeyboard: View {
     
     let bgColor = Color.gray.opacity(0.2)
     
-    public init(settings: Binding<KeyboardSettings>, bindingStringOverride: Binding<String>? = nil){
+    public init(settings: Binding<KeyboardSettings>, textInput textInputOverride: Binding<String>? = nil){
         self._settings = settings
 
-        if let overrideStr = bindingStringOverride {
+        if let overrideStr = textInputOverride {
             self.settings.changeTextInput(to: overrideStr)
         }
     }

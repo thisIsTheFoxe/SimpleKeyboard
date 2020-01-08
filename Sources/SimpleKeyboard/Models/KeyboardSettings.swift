@@ -10,12 +10,12 @@ import SwiftUI
 
 
 public protocol SimpleKeyboardInput {
-    mutating func replaceALl(with text: String)
+    mutating func replaceAll(with text: String)
 }
 
 extension Binding: SimpleKeyboardInput where Value == String {
     
-    public mutating func replaceALl(with text: String){
+    public mutating func replaceAll(with text: String){
         self.wrappedValue = text
         print("mutating func replaceALl = "+self.wrappedValue)
     }
@@ -24,7 +24,7 @@ extension Binding: SimpleKeyboardInput where Value == String {
 #if canImport(AppKit)
 import AppKit
 extension NSTextField: SimpleKeyboardInput{
-    public func replaceALl(with text: String){
+    public func replaceAll(with text: String){
         stringValue = text
     }
 }
@@ -33,7 +33,7 @@ extension NSTextField: SimpleKeyboardInput{
 #if canImport(UIKit)
 import UIKit
 extension UITextField : SimpleKeyboardInput{
-    public func replaceALl(with text: String){
+    public func replaceAll(with text: String){
         self.text = text
     }
 }
@@ -42,7 +42,7 @@ extension UITextField : SimpleKeyboardInput{
 public class KeyboardSettings: ObservableObject {
     public var text: String = "" {
         didSet{
-            textInput?.replaceALl(with: text)
+            textInput?.replaceAll(with: text)
         }
     }
     
@@ -63,7 +63,7 @@ public class KeyboardSettings: ObservableObject {
         }
     }
 
-    ///`textInput` is not needed / does nothing when working with SwiftUI, for that use the `changeTextInput(to:)` method
+    ///`textInput` should be `nil` when working directly with SwiftUI, in that case you would privide your 'bound' value directly to the keyboard
     public init(language: Language, textInput: SimpleKeyboardInput?, showNumbers: Bool = false, showSpace: Bool = false, isUpperCase: Bool? = nil, action: (()->())? = nil){
         self.textInput = textInput
         self.language = language

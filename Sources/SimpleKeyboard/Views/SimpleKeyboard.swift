@@ -4,11 +4,11 @@ public struct SimpleKeyboard: View {
     var keys: [[String]]
     @Binding var text: String
     @State var isUpperCase: Bool? = nil
-    var action : ()->()
+    var action : (()->())?
     
-    public init(keys: [[String]], text: Binding<String>, action: @escaping ()->()){
+    public init(keys: [[String]], textInput: Binding<String>, action: (()->())? = nil){
         self.keys = keys
-        self._text = text
+        self._text = textInput
         self.action = action
     }
     
@@ -23,7 +23,7 @@ public struct SimpleKeyboard: View {
             }
             HStack{
                 ActionKeyButton(icon: .done) {
-                    self.action()
+                    self.action?()
                 }
             }
         }.padding(.vertical, 5).background(Color.gray.opacity(0.2))
