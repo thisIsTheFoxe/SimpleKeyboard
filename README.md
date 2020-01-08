@@ -1,5 +1,8 @@
 # SimpleKeyboard
 
+[![codecov](https://codecov.io/gh/thisIsTheFoxe/SimpleKeyboard/branch/master/graph/badge.svg)](https://codecov.io/gh/thisIsTheFoxe/SimpleKeyboard)
+
+
 The idea of this package came from a keyboard-extension and the fact that - AFAIK - one can't open another keyboard within a keyboard-extension. So the goal was to have a ViewController, that simply displays the keyboard and changes a `text` variable. 
 
 ## Components
