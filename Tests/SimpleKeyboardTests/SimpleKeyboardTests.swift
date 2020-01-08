@@ -1,6 +1,7 @@
 import XCTest
-@testable import SimpleKeyboard
 import SwiftUI
+@testable import SimpleKeyboard
+
 
 final class SimpleKeyboardTests: XCTestCase {
     
