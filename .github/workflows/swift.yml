@@ -16,12 +16,7 @@ jobs:
     - name: Build
       run: swift build -v
     - name: Run tests
-      run: swift test -v
-    - name: Build and test
-      run: 
-          swift package generate-xcodeproj;ls;
-          xcodebuild build -sdk iphoneos -scheme 'SimpleKeyboard-Package';
-          xcodebuild test -destination 'platform=iOS Simulator,OS=13.1,name=iPhone 11' -scheme 'SimpleKeyboard-Package' -enableCodeCoverage YES;
+      run: swift test -v --enable-code-coverage
     - name: Codecov
       uses: codecov/codecov-action@v1.0.5
       with:
