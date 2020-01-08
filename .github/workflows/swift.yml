@@ -16,13 +16,13 @@ jobs:
     - name: Build
       run: swift build -v
     - name: Run tests
-      run: swift test -v --enable-code-coverage;  ls .build/debug/;
+      run: swift test -v --enable-code-coverage;  ls .build/debug/codecov;
     - name: Generate lcov file
       run: |
         xcrun llvm-cov export -format=lcov \
           -instr-profile .build/debug/codecov/default.profdata \
           -ignore-filename-regex="(.build/|Tests/)" \
-          .build/debug/SimpleKeyboard-providerPackageTests.xctest/Contents/MacOS/SimpleKeyboard-providerPackageTests > ./coverage.lcov
+          .build/debug/SimpleKeyboardPackageTests.xctest/Contents/MacOS/SimpleKeyboardPackageTests > ./coverage.lcov
     - name: Codecov
       uses: codecov/codecov-action@v1.0.5
       with:
