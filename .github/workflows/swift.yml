@@ -6,13 +6,23 @@ jobs:
   build:
 
     runs-on: macos
-
+    
+    strategy:
+        matrix:
+          destination: ['platform=iOS Simulator,OS=13.3,name=iPhone X', 'platform=tvOS Simulator,OS=13.3,name=Apple TV 4K']
+    
     steps:
     - uses: actions/checkout@v1
     - name: Build
       run: swift build -v
     - name: Run tests
-      run: swift test -v
+      run: swift test -v --enable-code-coverage;  ls .build/debug/codecov;
+    - name: Generate lcov file
+      run: |
+        xcrun llvm-cov export -format=lcov \
+          -instr-profile .build/debug/codecov/default.profdata \
+          -ignore-filename-regex="(.build/|Tests/)" \
+          .build/debug/SimpleKeyboardPackageTests.xctest/Contents/MacOS/SimpleKeyboardPackageTests > ./coverage.lcov
     - name: Codecov
       uses: codecov/codecov-action@v1.0.5
       with:
