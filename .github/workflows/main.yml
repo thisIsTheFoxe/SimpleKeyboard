@@ -1,0 +1,12 @@
+name: Sonarcloud
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: macos-latest
+
+    steps:
+    - name: SonarCloud Scan
+      uses: SonarSource/sonarcloud-github-action@v1.1
