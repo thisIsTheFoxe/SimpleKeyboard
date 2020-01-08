@@ -18,7 +18,8 @@ jobs:
     - name: Run tests
       run: swift test -v --enable-code-coverage
     - name: Generate lcov file
-      run: ls .build/debug/; |
+      run: ls .build/debug/
+        |
         xcrun llvm-cov export -format=lcov \
           -instr-profile .build/debug/codecov/default.profdata \
           -ignore-filename-regex="(.build/|Tests/)" \
