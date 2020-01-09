@@ -9,7 +9,7 @@ jobs:
 
     steps:
     - name: Setup
-      run: ls; 
+      run: pwd; ls -la; 
     - name: SonarCloud Scan
       uses: SonarSource/sonarcloud-github-action@v1.1
       env:
