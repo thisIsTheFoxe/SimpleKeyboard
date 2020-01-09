@@ -10,7 +10,7 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - name: Setup
-      run: cd..; pwd; ls -la; 
+      run: cd ..; pwd; ls -la; 
     - name: SonarCloud Scan
       uses: SonarSource/sonarcloud-github-action@v1.1
       env:
