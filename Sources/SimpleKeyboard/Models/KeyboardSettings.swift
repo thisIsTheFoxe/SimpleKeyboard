@@ -10,10 +10,14 @@ import SwiftUI
 
 
 public protocol SimpleKeyboardInput {
+    var currentText: String { get }
     mutating func replaceAll(with text: String)
 }
 
 extension Binding: SimpleKeyboardInput where Value == String {
+    public var currentText: String {
+        self.wrappedValue
+    }
     
     public mutating func replaceAll(with text: String){
         self.wrappedValue = text
@@ -24,6 +28,10 @@ extension Binding: SimpleKeyboardInput where Value == String {
 #if canImport(AppKit)
 import AppKit
 extension NSTextField: SimpleKeyboardInput{
+    public var currentText: String {
+        self.stringValue
+    }
+    
     public func replaceAll(with text: String){
         stringValue = text
     }
@@ -33,6 +41,10 @@ extension NSTextField: SimpleKeyboardInput{
 #if canImport(UIKit)
 import UIKit
 extension UITextField : SimpleKeyboardInput{
+    public var currentText: String {
+        self.text ?? ""
+    }
+    
     public func replaceAll(with text: String){
         self.text = text
     }
@@ -75,6 +87,7 @@ public class KeyboardSettings: ObservableObject {
     
     func changeTextInput(to newInput: SimpleKeyboardInput){
         self.textInput = newInput
+        self.text = newInput.currentText
         print("changed Input")
     }
 }

@@ -36,7 +36,8 @@ struct KeyButton: View {
     var actualLetter: String {
         if isUpperCase ?? false {
             return letter.uppercased()
-        }else { return letter }
+        }
+        return letter
     }
     
     var body: some View{
