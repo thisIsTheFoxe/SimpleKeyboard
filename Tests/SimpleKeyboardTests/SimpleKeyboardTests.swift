@@ -13,7 +13,13 @@ final class SimpleKeyboardTests: XCTestCase {
         tester = InputTester()
         s = KeyboardSettings(language: .english, textInput: Binding.constant(""))
     }
-    
+
+    func test_lnaguages_not_empty(){
+        for l in Language.allCases {
+            XCTAssertFalse(l.rows.isEmpty)
+        }
+    }
+
     func test_create_settings(){
         let t = InputTester()
         s.changeTextInput(to: t)
@@ -63,13 +69,18 @@ final class SimpleKeyboardTests: XCTestCase {
         
         XCTAssertNotNil(standard.body)
         
+        standard.settings.isUpperCase = true
+        let newTester = InputTester()
+        standard.settings.changeTextInput(to: newTester)
+        standard.settings.text = "xyz"
+
+        XCTAssertEqual(newTester.text, standard.settings.text)
+
         wait(for: [action], timeout: 2)
-        
     }
     
     func test_simple_keyboard_works(){
         let action = XCTestExpectation(description: "SimpleKeyboardAction")
-        
         let simple = SimpleKeyboard(keys: [["0"],["1"]], textInput: $s.text) {
             action.fulfill()
         }
@@ -82,6 +93,7 @@ final class SimpleKeyboardTests: XCTestCase {
     }
     
     static var allTests = [
+        ("test_lnaguages_not_empty", test_lnaguages_not_empty),
         ("create_settings", test_create_settings),
         ("create_settings", test_create_settings),
         ("has_10_numbers", test_has_10_numbers),

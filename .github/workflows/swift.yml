@@ -6,11 +6,7 @@ jobs:
   build:
 
     runs-on: macos
-    
-    strategy:
-        matrix:
-          destination: ['platform=iOS Simulator,OS=13.3,name=iPhone X', 'platform=tvOS Simulator,OS=13.3,name=Apple TV 4K']
-    
+        
     steps:
     - uses: actions/checkout@v1
     - name: Build
