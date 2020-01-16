@@ -11,9 +11,7 @@ struct ShiftKeyButton: View {
     @Binding var isUpperCase: Bool!
     
     var body: some View {
-        AnyView(Button(action: {
-            self.isUpperCase?.toggle()
-        }) { () -> AnyView in
+        AnyView(Button(action: { self.isUpperCase?.toggle() }) { () -> AnyView in
             #if os(macOS)
             return AnyView(Text(isUpperCase! ? "Up": "lw"))
             #else
@@ -41,9 +39,7 @@ struct KeyButton: View {
     }
     
     var body: some View{
-        Button(action: {
-            self.text.append(self.actualLetter)
-        }) {
+        Button(action: { self.text.append(self.actualLetter) }) {
             Text(actualLetter)
                 .foregroundColor(.primary)
                 .font(.system(size: 25))
@@ -59,9 +55,7 @@ struct SpaceKeyButton: View {
     @Binding var text: String
     
     var body: some View{
-        Button(action: {
-            self.text.append(" ")
-        }) {
+        Button(action: { self.text.append(" ") }) {
             Text("space").padding().padding(.horizontal, 50)
                 .foregroundColor(.primary)
                 .background(Color.gray.opacity(0.5)).cornerRadius(7)
@@ -96,9 +90,7 @@ struct ActionKeyButton: View {
     var action: ()->()
     
     var body: some View{
-        Button(action: {
-            self.action()
-        }) {
+        Button(action: self.action) {
             icon.view.padding()
                 .foregroundColor(.white)
             .background(Color.blue).cornerRadius(7)
