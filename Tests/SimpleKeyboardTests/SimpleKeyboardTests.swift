@@ -71,7 +71,7 @@ final class SimpleKeyboardTests: XCTestCase {
         
         let key = KeyButton(text: $tester.text, letter: "x")
         XCTAssertNotNil(key.body)
-        XCTAssertEqual(key.actualLetter, "x")
+        XCTAssertEqual(key.letter, "x")
         
         tester.settings.isUpperCase = false
 
