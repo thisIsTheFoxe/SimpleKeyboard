@@ -36,8 +36,8 @@ public struct SimpleStandardKeyboard: View {
     
     var numbersRow: some View{
         HStack(spacing: 10){
-            ForEach(Language.numbers, id: \.self){ key in
-                KeyButton(text: self.$settings.text, isUpperCase: .constant(false), letter: key)
+            ForEach(Language.numbers(areUppercased: self.settings.isUpperCase), id: \.self){ key in
+                KeyButton(text: self.$settings.text, letter: key)
             }
         }
     }
@@ -61,8 +61,9 @@ public struct SimpleStandardKeyboard: View {
     }
     
     fileprivate func rowFor(_ index: Int) -> ForEach<[String], String, KeyButton> {
-        return ForEach(self.settings.language.rows[index], id: \.self){ key in
-            KeyButton(text: self.$settings.text, isUpperCase: self.$settings.isUpperCase, letter: key)
+        let rows = self.settings.language.rows(areUppercased: self.$settings.isUpperCase)[index]
+        return ForEach(rows, id: \.self){ key in
+            KeyButton(text: self.$settings.text, letter: key)
         }
     }
     
