@@ -7,15 +7,22 @@
 
 import Foundation
 public enum Language: CaseIterable {
-    static var numbers = ["1","2","3","4","5","6","7","8","9","0"]
+    static func numbers(areUppercased: Bool) -> [String]{
+        return areUppercased ? ["!", "?", ".", "%", "+", "-", "_", "=", "@", "#"] : ["1","2","3","4","5","6","7","8","9","0"]
+    }
     case english, german
     
-    var rows: [[String]] {
+    func rows(areUppercased: Bool) -> [[String]] {
+        var r = [[String]]()
         switch self{
         case .english:
-            return [["q","w","e","r","t","y","u","i","o","p"],["a","s","d","f","g","h","j","k","l"],["z","x","c","v","b","n","m"]]
+            r = [["q","w","e","r","t","y","u","i","o","p"],["a","s","d","f","g","h","j","k","l"],["z","x","c","v","b","n","m"]]
         case .german:
-            return [["q","w","e","r","t","z","u","i","o","p"],["a","s","d","f","g","h","j","k","l"],["y","x","c","v","b","n","m"]]
+            r = [["q","w","e","r","t","z","u","i","o","p"],["a","s","d","f","g","h","j","k","l"],["y","x","c","v","b","n","m"]]
         }
+        if areUppercased {
+            r = r.map{ $0.map { $0.uppercased() } }
+        }
+        return r
     }
 }

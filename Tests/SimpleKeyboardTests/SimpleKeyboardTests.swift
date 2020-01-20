@@ -37,7 +37,8 @@ final class SimpleKeyboardTests: XCTestCase {
     
     func test_lnaguages_not_empty(){
         for l in Language.allCases {
-            XCTAssertFalse(l.rows.isEmpty)
+            XCTAssertFalse(l.rows(areUppercased: false).isEmpty)
+            XCTAssertFalse(l.rows(areUppercased: true).isEmpty)
         }
     }
 
@@ -50,7 +51,8 @@ final class SimpleKeyboardTests: XCTestCase {
     }
     
     func test_has_10_numbers(){
-        XCTAssertEqual(Language.numbers.count, 10)
+        XCTAssertEqual(Language.numbers(areUppercased: true).count, 10)
+        XCTAssertEqual(Language.numbers(areUppercased: false).count, 10)
     }
     
     func test_change_input(){
@@ -67,9 +69,9 @@ final class SimpleKeyboardTests: XCTestCase {
     func test_buttons(){
         let expect = XCTestExpectation()
         
-        let key = KeyButton(text: $tester.text, isUpperCase: $tester.settings.isUpperCase, letter: "x")
+        let key = KeyButton(text: $tester.text, letter: "x")
         XCTAssertNotNil(key.body)
-        XCTAssertEqual(key.actualLetter, "x")
+        XCTAssertEqual(key.letter, "x")
         
         tester.settings.isUpperCase = false
 
@@ -77,7 +79,7 @@ final class SimpleKeyboardTests: XCTestCase {
         XCTAssertNotNil(shift.body)
         
         tester.settings.isUpperCase = true
-        XCTAssertEqual(key.actualLetter, "X")
+        XCTAssertEqual(tester.settings.isUpperCase, shift.isUpperCase)
         
         let space = SpaceKeyButton(text: $tester.text)
         XCTAssertNotNil(space.body)
