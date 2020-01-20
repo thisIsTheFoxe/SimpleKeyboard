@@ -32,7 +32,7 @@ struct KeyButton: View {
     
     var body: some View{
         Button(action: { self.text.append(self.letter) }) {
-            Text(actualLetter)
+            Text(letter)
                 .foregroundColor(.primary)
                 .font(.system(size: 25))
                 .padding(5)
