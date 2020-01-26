@@ -56,7 +56,7 @@ struct SpaceKeyButton: View {
     
     var body: some View{
         Button(action: { self.text.append(" ") }) {
-            Text("space").padding().padding(.horizontal, 50)
+            Text("space").padding().padding(.horizontal, 75)
                 .foregroundColor(.primary)
                 .background(Color.gray.opacity(0.5)).cornerRadius(7)
         }
