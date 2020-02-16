@@ -28,19 +28,11 @@ struct ShiftKeyButton: View {
 
 struct KeyButton: View {
     @Binding var text: String
-    @Binding var isUpperCase: Bool?
     var letter: String
     
-    var actualLetter: String {
-        if isUpperCase ?? false {
-            return letter.uppercased()
-        }
-        return letter
-    }
-    
     var body: some View{
-        Button(action: { self.text.append(self.actualLetter) }) {
-            Text(actualLetter)
+        Button(action: { self.text.append(self.letter) }) {
+            Text(letter)
                 .foregroundColor(.primary)
                 .font(.system(size: 25))
                 .padding(5)
