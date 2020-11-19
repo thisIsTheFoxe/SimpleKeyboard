@@ -18,20 +18,6 @@ final class SimpleKeyboardTests: XCTestCase {
         tester = InputTester()
     }
 
-    
-    func test_empty() {}
-    
-    func test_smell(){
-        if true {
-            if 1 == 1 {
-                if "".isEmpty {
-                }
-                else {
-                    return
-                }
-            }
-        }
-    }
     func test_native_input(){
         #if canImport(UIKit)
         let textField = UITextField()
