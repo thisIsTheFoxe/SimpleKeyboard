@@ -42,16 +42,16 @@ public struct SimpleStandardKeyboard: View {
     }
     
     var keyboardRows: some View{
-        ForEach(0..<settings.language.rows(areUppercased: settings.isUpperCase ?? false).count, id: \.self){ i in
+        ForEach(0..<settings.language.rows(areUppercased: settings.isUpperCase ?? false).count, id: \.self){ idx in
             HStack(spacing: 10){
-                if i == 2{
+                if idx == 2{
                     Spacer()
                     if self.settings.isUpperCase != nil {
                         ShiftKeyButton(isUpperCase: self.$settings.isUpperCase).padding(.leading)
                     }
                 }
-                self.rowFor(i)
-                if i == 2{
+                self.rowFor(idx)
+                if idx == 2{
                     DeleteKeyButton(text: self.$settings.text).padding(.trailing)
                     Spacer()
                 }

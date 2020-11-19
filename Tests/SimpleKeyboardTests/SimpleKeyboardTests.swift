@@ -36,18 +36,18 @@ final class SimpleKeyboardTests: XCTestCase {
     }
     
     func test_lnaguages_not_empty(){
-        for l in Language.allCases {
-            XCTAssertFalse(l.rows(areUppercased: false).isEmpty)
-            XCTAssertFalse(l.rows(areUppercased: true).isEmpty)
+        for lang in Language.allCases {
+            XCTAssertFalse(lang.rows(areUppercased: false).isEmpty)
+            XCTAssertFalse(lang.rows(areUppercased: true).isEmpty)
         }
     }
 
     func test_create_settings(){
-        let t = InputTester()
-        tester.settings.changeTextInput(to: t)
+        let newTester = InputTester()
+        tester.settings.changeTextInput(to: newTester)
         
         tester.settings.text = "abc"
-        XCTAssertEqual(t.text, tester.settings.text)
+        XCTAssertEqual(newTester.text, tester.settings.text)
     }
     
     func test_has_10_numbers(){
