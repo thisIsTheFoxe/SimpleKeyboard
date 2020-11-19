@@ -28,7 +28,6 @@ public struct SimpleStandardKeyboard: View {
                 Spacer()
             }
             ActionKeyButton(icon: .done) {
-                //                    self.isShown.toggle()
                 self.settings.action?()
             }.padding(.trailing, 5)
         }

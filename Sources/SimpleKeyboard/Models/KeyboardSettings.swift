@@ -25,7 +25,7 @@ extension Binding: SimpleKeyboardInput where Value == String {
     }
 }
 
-#if canImport(AppKit)
+#if canImport(AppKit) && !targetEnvironment(macCatalyst)
 import AppKit
 extension NSTextField: SimpleKeyboardInput{
     public var currentText: String {
@@ -63,7 +63,6 @@ public class KeyboardSettings: ObservableObject {
     public var textInput: SimpleKeyboardInput?
     public var action: (()->())?
     
-    //        self._isShown = isShown
     var showNumbers: Bool
     var showSpace: Bool
     
