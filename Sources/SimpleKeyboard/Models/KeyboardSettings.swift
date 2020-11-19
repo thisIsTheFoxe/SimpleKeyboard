@@ -21,7 +21,6 @@ extension Binding: SimpleKeyboardInput where Value == String {
     
     public mutating func replaceAll(with text: String){
         self.wrappedValue = text
-        self.wrappedValue = text
         print("mutating func replaceALl = "+self.wrappedValue)
     }
 }
