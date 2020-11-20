@@ -18,7 +18,7 @@ struct ShiftKeyButton: View {
             return AnyView(Image(systemName: isUpperCase ? "shift.fill" : "shift").imageScale(.large))
             #endif
         })
-            .foregroundColor(.primary)
+        .foregroundColor(.primary)
         .font(Font.headline.weight(.semibold))
         .padding()
         .background(Color.gray.opacity(0.5))
@@ -58,7 +58,7 @@ struct SpaceKeyButton: View {
 struct DeleteKeyButton: View {
     @Binding var text: String
     
-    var body: some View{
+    var body: some View {
         AnyView(Button(action: {
             guard !self.text.isEmpty else { return }
             _ = self.text.removeLast()
@@ -79,7 +79,7 @@ struct DeleteKeyButton: View {
 
 struct ActionKeyButton: View {
     @State var icon: Icon
-    var action: ()->()
+    var action: ()->Void
     
     var body: some View {
         Button(action: self.action) {

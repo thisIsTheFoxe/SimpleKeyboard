@@ -30,7 +30,7 @@ extension NSTextField: SimpleKeyboardInput {
     public var currentText: String {
         self.stringValue
     }
-    
+
     public func replaceAll(with text: String) {
         stringValue = text
     }
@@ -43,7 +43,7 @@ extension UITextField : SimpleKeyboardInput {
     public var currentText: String {
         self.text ?? ""
     }
-    
+
     public func replaceAll(with text: String) {
         self.text = text
     }
@@ -56,11 +56,11 @@ public class KeyboardSettings: ObservableObject {
             textInput?.replaceAll(with: text)
         }
     }
-    
+
     var language: Language
-    
+
     public var textInput: SimpleKeyboardInput?
-    public var action: (()->())?
+    public var action: (()->Void)?
     
     var showNumbers: Bool
     var showSpace: Bool
@@ -73,9 +73,10 @@ public class KeyboardSettings: ObservableObject {
         }
     }
 
-    ///`textInput` should be `nil` when working directly with SwiftUI, in that case you would privide your 'bound' value directly to the keyboard
+    ///`textInput` should be `nil` when working directly with SwiftUI,
+    ///in that case you would bind your input directly to the `textInput` of the Keyboard
     public init(language: Language, textInput: SimpleKeyboardInput?, showNumbers: Bool = false,
-                showSpace: Bool = false, isUpperCase: Bool? = nil, action: (()->())? = nil) {
+                showSpace: Bool = false, isUpperCase: Bool? = nil, action: (()->Void)? = nil) {
         self.textInput = textInput
         self.language = language
         self.action = action
@@ -83,7 +84,7 @@ public class KeyboardSettings: ObservableObject {
         self.showSpace = showSpace
         self.isUpperCase = isUpperCase
     }
-    
+
     func changeTextInput(to newInput: SimpleKeyboardInput) {
         self.textInput = newInput
         self.text = newInput.currentText

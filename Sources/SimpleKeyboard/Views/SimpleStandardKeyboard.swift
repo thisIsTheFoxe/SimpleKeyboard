@@ -21,7 +21,7 @@ public struct SimpleStandardKeyboard: View {
     }
     
     var spaceRow: some View{
-        HStack{
+        HStack {
             if settings.showSpace {
                 Spacer()
                 SpaceKeyButton(text: $settings.text)
