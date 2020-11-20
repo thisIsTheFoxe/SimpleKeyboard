@@ -17,7 +17,7 @@ extension Binding: SimpleKeyboardInput where Value == String {
     public var currentText: String {
         self.wrappedValue
     }
-    
+
     public mutating func replaceAll(with text: String) {
         self.wrappedValue = text
         print("mutating func replaceALl = "+self.wrappedValue)
@@ -39,7 +39,8 @@ extension NSTextField: SimpleKeyboardInput {
 
 #if canImport(UIKit)
 import UIKit
-extension UITextField : SimpleKeyboardInput {
+
+extension UITextField: SimpleKeyboardInput {
     public var currentText: String {
         self.text ?? ""
     }

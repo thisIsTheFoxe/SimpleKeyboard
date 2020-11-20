@@ -7,7 +7,7 @@
 
 import Foundation
 public enum Language: CaseIterable {
-    static func numbers(areUppercased: Bool) -> [String]{
+    static func numbers(areUppercased: Bool) -> [String] {
         return areUppercased ? ["!", "?", ".", "%", "+", "-", "_", "=", "@", "#"] :
             ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"]
     }
@@ -16,7 +16,7 @@ public enum Language: CaseIterable {
 
     func rows(areUppercased: Bool) -> [[String]] {
         var result = [[String]]()
-        switch self{
+        switch self {
         case .english:
             result = [
                 ["q", "w", "e", "r", "t", "y", "u", "i", "o", "p"],
@@ -32,7 +32,7 @@ public enum Language: CaseIterable {
         }
 
         if areUppercased {
-            result = result.map{ $0.map { $0.uppercased() } }
+            result = result.map { $0.map { $0.uppercased() } }
         }
 
         return result

@@ -9,7 +9,7 @@ import SwiftUI
 
 public struct SimpleStandardKeyboard: View {
     @Binding var settings: KeyboardSettings
-    
+
     let bgColor = Color.gray.opacity(0.2)
 
     public init(settings: Binding<KeyboardSettings>, textInput textInputOverride: Binding<String>? = nil) {
@@ -20,7 +20,7 @@ public struct SimpleStandardKeyboard: View {
         }
     }
 
-    var spaceRow: some View{
+    var spaceRow: some View {
         HStack {
             if settings.showSpace {
                 Spacer()
@@ -33,7 +33,7 @@ public struct SimpleStandardKeyboard: View {
         }
     }
 
-    var numbersRow: some View{
+    var numbersRow: some View {
         HStack(spacing: 10) {
             ForEach(Language.numbers(areUppercased: self.settings.isUpperCase ?? false), id: \.self) { key in
                 KeyButton(text: self.$settings.text, letter: key)
@@ -41,7 +41,7 @@ public struct SimpleStandardKeyboard: View {
         }
     }
 
-    var keyboardRows: some View{
+    var keyboardRows: some View {
         ForEach(0..<settings.language.rows(areUppercased: settings.isUpperCase ?? false).count, id: \.self) { idx in
             HStack(spacing: 10) {
                 if idx == 2 {

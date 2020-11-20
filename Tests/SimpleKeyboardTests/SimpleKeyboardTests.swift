@@ -9,9 +9,9 @@ import AppKit
 #endif
 
 final class SimpleKeyboardTests: XCTestCase {
-    
+
     @ObservedObject var tester = InputTester()
-    
+
     override func setUp() {
         tester = InputTester()
     }
@@ -31,7 +31,7 @@ final class SimpleKeyboardTests: XCTestCase {
         XCTAssertEqual(textField.stringValue, "AppKit")
         #endif
     }
-    
+
     func test_lnaguages_not_empty() {
         for lang in Language.allCases {
             XCTAssertFalse(lang.rows(areUppercased: false).isEmpty)
@@ -46,23 +46,23 @@ final class SimpleKeyboardTests: XCTestCase {
         tester.settings.text = "abc"
         XCTAssertEqual(newTester.text, tester.settings.text)
     }
-    
+
     func test_has_10_numbers() {
         XCTAssertEqual(Language.numbers(areUppercased: true).count, 10)
         XCTAssertEqual(Language.numbers(areUppercased: false).count, 10)
     }
-    
+
     func test_change_input() {
         let newInput = InputTester()
         tester.settings.changeTextInput(to: newInput)
     }
-    
+
     func test_icons() {
         XCTAssertNotNil(Icon.done)
         XCTAssertNotNil(Icon.go)
         XCTAssertNotNil(Icon.search)
     }
-    
+
     func test_buttons() {
         let expect = XCTestExpectation()
         
@@ -107,7 +107,7 @@ final class SimpleKeyboardTests: XCTestCase {
         
         XCTAssertNotNil(standard.body)
     }
-    
+
     func test_standard_keyboard_action_works() {
         let action = XCTestExpectation(description: "StdKeyboardAction")
         let settings = KeyboardSettings(language: Language.german, textInput: tester as SimpleKeyboardInput, showNumbers: true, showSpace: true, isUpperCase: tester.settings.isUpperCase) {
@@ -131,7 +131,7 @@ final class SimpleKeyboardTests: XCTestCase {
 
         wait(for: [action], timeout: 2)
     }
-    
+
     func test_simple_keyboard_works() {
         let action = XCTestExpectation(description: "SimpleKeyboardAction")
         let simple = SimpleKeyboard(keys: [["0"],["1", "2"]], textInput: $tester.text) {
@@ -143,7 +143,7 @@ final class SimpleKeyboardTests: XCTestCase {
         simple.action?()
         wait(for: [action], timeout: 2)
     }
-    
+
     static var allTests = [
         ("test_native_input", test_native_input),
         ("test_lnaguages_not_empty", test_lnaguages_not_empty),

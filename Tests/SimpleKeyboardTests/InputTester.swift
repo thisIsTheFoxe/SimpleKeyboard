@@ -11,14 +11,15 @@ import SimpleKeyboard
 ///NOTE: doesn't work with `struct` prob. because of copyOnWrite..?
 class InputTester: ObservableObject, SimpleKeyboardInput {
     var currentText: String { return text }
-    
+
     @Published var text: String = ""
-    
+
     @Published var settings = KeyboardSettings(language: .english, textInput: nil)
-    
+
     func replaceAll(with text: String) {
         print("UPDATE!")
         self.text = text
     }
+
     init() { }
 }
