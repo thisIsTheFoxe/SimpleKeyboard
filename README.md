@@ -19,12 +19,12 @@ Or one can choose to only display the keyboard with a the text input coming from
 ### Use SimpleKeyboard with UIKit
 Here is an example implementation from one of my projects:
 ```swift
-class MyViewController: UIViewController{
+class MyViewController: UIViewController {
     @IBOutlet var textField: UITextField!
     
     //..........
     
-    func presentKeyboard(){
+    func presentKeyboard() {
         let keyboardSettings = KeyboardSettings(language: .english, textInput: self.textField)
         let keyboardVC = MyKeyboardMaker(settings: keyboardSettings).makeViewController()
         self.contentController.pushViewController(keyboardVC, animated: true)
@@ -34,11 +34,11 @@ class MyViewController: UIViewController{
 ```
 
 ```swift
-struct MyKeyboardMaker{
+struct MyKeyboardMaker {
     
     @ObservedObject var settings: KeyboardSettings
     
-    func makeViewController()-> UIHostingController<SimpleStandardKeyboard>{
+    func makeViewController()-> UIHostingController<SimpleStandardKeyboard> {
         UIHostingController(rootView: SimpleStandardKeyboard(settings: $settings)
     }
 }

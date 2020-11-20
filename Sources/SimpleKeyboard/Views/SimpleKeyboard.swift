@@ -5,7 +5,7 @@ public struct SimpleKeyboard: View {
     @Binding var text: String
     var action : (()->())?
     
-    public init(keys: [[String]], textInput: Binding<String>, action: (()->())? = nil){
+    public init(keys: [[String]], textInput: Binding<String>, action: (()->())? = nil) {
         self.keys = keys
         self._text = textInput
         self.action = action
@@ -13,9 +13,9 @@ public struct SimpleKeyboard: View {
     
     public var body: some View {
         VStack{
-            ForEach(keys, id: \.self){ row in
+            ForEach(keys, id: \.self) { row in
                 HStack{
-                    ForEach(row, id: \.self){ key in
+                    ForEach(row, id: \.self) { key in
                         KeyButton(text: self.$text, letter: key)
                     }
                 }

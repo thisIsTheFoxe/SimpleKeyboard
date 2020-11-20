@@ -30,7 +30,7 @@ struct KeyButton: View {
     @Binding var text: String
     var letter: String
     
-    var body: some View{
+    var body: some View {
         Button(action: { self.text.append(self.letter) }) {
             Text(letter)
                 .foregroundColor(.primary)
@@ -46,7 +46,7 @@ struct KeyButton: View {
 struct SpaceKeyButton: View {
     @Binding var text: String
     
-    var body: some View{
+    var body: some View {
         Button(action: { self.text.append(" ") }) {
             Text("space").padding().padding(.horizontal, 75)
                 .foregroundColor(.primary)
@@ -81,7 +81,7 @@ struct ActionKeyButton: View {
     @State var icon: Icon
     var action: ()->()
     
-    var body: some View{
+    var body: some View {
         Button(action: self.action) {
             icon.view.padding()
                 .foregroundColor(.white)
@@ -93,8 +93,8 @@ struct ActionKeyButton: View {
 enum Icon {
     case done, search, go
     
-    var view: some View{
-        switch self{
+    var view: some View {
+        switch self {
         case .done: return AnyView(Text("Done!"))
         case .search:
             #if os(macOS)

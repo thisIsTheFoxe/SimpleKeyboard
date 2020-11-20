@@ -16,9 +16,9 @@ class InputTester: ObservableObject, SimpleKeyboardInput {
     
     @Published var settings = KeyboardSettings(language: .english, textInput: nil)
     
-    func replaceAll(with text: String){
+    func replaceAll(with text: String) {
         print("UPDATE!")
         self.text = text
     }
-    init(){}
+    init() { }
 }

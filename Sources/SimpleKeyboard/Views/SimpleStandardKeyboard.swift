@@ -12,7 +12,7 @@ public struct SimpleStandardKeyboard: View {
     
     let bgColor = Color.gray.opacity(0.2)
     
-    public init(settings: Binding<KeyboardSettings>, textInput textInputOverride: Binding<String>? = nil){
+    public init(settings: Binding<KeyboardSettings>, textInput textInputOverride: Binding<String>? = nil) {
         self._settings = settings
 
         if let overrideStr = textInputOverride {
@@ -22,7 +22,7 @@ public struct SimpleStandardKeyboard: View {
     
     var spaceRow: some View{
         HStack{
-            if settings.showSpace{
+            if settings.showSpace {
                 Spacer()
                 SpaceKeyButton(text: $settings.text)
                 Spacer()
@@ -34,24 +34,24 @@ public struct SimpleStandardKeyboard: View {
     }
     
     var numbersRow: some View{
-        HStack(spacing: 10){
-            ForEach(Language.numbers(areUppercased: self.settings.isUpperCase ?? false), id: \.self){ key in
+        HStack(spacing: 10) {
+            ForEach(Language.numbers(areUppercased: self.settings.isUpperCase ?? false), id: \.self) { key in
                 KeyButton(text: self.$settings.text, letter: key)
             }
         }
     }
     
     var keyboardRows: some View{
-        ForEach(0..<settings.language.rows(areUppercased: settings.isUpperCase ?? false).count, id: \.self){ idx in
-            HStack(spacing: 10){
-                if idx == 2{
+        ForEach(0..<settings.language.rows(areUppercased: settings.isUpperCase ?? false).count, id: \.self) { idx in
+            HStack(spacing: 10) {
+                if idx == 2 {
                     Spacer()
                     if self.settings.isUpperCase != nil {
                         ShiftKeyButton(isUpperCase: self.$settings.isUpperCase).padding(.leading)
                     }
                 }
                 self.rowFor(idx)
-                if idx == 2{
+                if idx == 2 {
                     DeleteKeyButton(text: self.$settings.text).padding(.trailing)
                     Spacer()
                 }
@@ -61,13 +61,13 @@ public struct SimpleStandardKeyboard: View {
     
     fileprivate func rowFor(_ index: Int) -> ForEach<[String], String, KeyButton> {
         let rows = self.settings.language.rows(areUppercased: settings.isUpperCase ?? false)[index]
-        return ForEach(rows, id: \.self){ key in
+        return ForEach(rows, id: \.self) { key in
             KeyButton(text: self.$settings.text, letter: key)
         }
     }
     
     public var body: some View {
-        VStack(spacing: 10){
+        VStack(spacing: 10) {
             if settings.showNumbers {
                 numbersRow
             }

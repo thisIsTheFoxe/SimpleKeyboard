@@ -8,8 +8,6 @@ import UIKit
 import AppKit
 #endif
 
-
-
 final class SimpleKeyboardTests: XCTestCase {
     
     @ObservedObject var tester = InputTester()
@@ -18,7 +16,7 @@ final class SimpleKeyboardTests: XCTestCase {
         tester = InputTester()
     }
 
-    func test_native_input(){
+    func test_native_input() {
         #if canImport(UIKit)
         let textField = UITextField()
         tester.settings.changeTextInput(to: textField)
@@ -32,17 +30,16 @@ final class SimpleKeyboardTests: XCTestCase {
         tester.settings.text = "AppKit"
         XCTAssertEqual(textField.stringValue, "AppKit")
         #endif
-        
     }
     
-    func test_lnaguages_not_empty(){
+    func test_lnaguages_not_empty() {
         for lang in Language.allCases {
             XCTAssertFalse(lang.rows(areUppercased: false).isEmpty)
             XCTAssertFalse(lang.rows(areUppercased: true).isEmpty)
         }
     }
 
-    func test_create_settings(){
+    func test_create_settings() {
         let newTester = InputTester()
         tester.settings.changeTextInput(to: newTester)
         
@@ -50,23 +47,23 @@ final class SimpleKeyboardTests: XCTestCase {
         XCTAssertEqual(newTester.text, tester.settings.text)
     }
     
-    func test_has_10_numbers(){
+    func test_has_10_numbers() {
         XCTAssertEqual(Language.numbers(areUppercased: true).count, 10)
         XCTAssertEqual(Language.numbers(areUppercased: false).count, 10)
     }
     
-    func test_change_input(){
+    func test_change_input() {
         let newInput = InputTester()
         tester.settings.changeTextInput(to: newInput)
     }
     
-    func test_icons(){
+    func test_icons() {
         XCTAssertNotNil(Icon.done)
         XCTAssertNotNil(Icon.go)
         XCTAssertNotNil(Icon.search)
     }
     
-    func test_buttons(){
+    func test_buttons() {
         let expect = XCTestExpectation()
         
         let key = KeyButton(text: $tester.text, letter: "x")
@@ -103,7 +100,7 @@ final class SimpleKeyboardTests: XCTestCase {
         wait(for: [expect], timeout: 3)
     }
 
-    func test_standard_keyboard_init(){
+    func test_standard_keyboard_init() {
         let standard = SimpleStandardKeyboard(settings: $tester.settings, textInput: $tester.text)
         standard.settings.text = "qwerty"
         XCTAssertEqual(standard.settings.text, tester.text)
@@ -111,7 +108,7 @@ final class SimpleKeyboardTests: XCTestCase {
         XCTAssertNotNil(standard.body)
     }
     
-    func test_standard_keyboard_action_works(){
+    func test_standard_keyboard_action_works() {
         let action = XCTestExpectation(description: "StdKeyboardAction")
         let settings = KeyboardSettings(language: Language.german, textInput: tester as SimpleKeyboardInput, showNumbers: true, showSpace: true, isUpperCase: tester.settings.isUpperCase) {
             action.fulfill()
@@ -135,7 +132,7 @@ final class SimpleKeyboardTests: XCTestCase {
         wait(for: [action], timeout: 2)
     }
     
-    func test_simple_keyboard_works(){
+    func test_simple_keyboard_works() {
         let action = XCTestExpectation(description: "SimpleKeyboardAction")
         let simple = SimpleKeyboard(keys: [["0"],["1", "2"]], textInput: $tester.text) {
             action.fulfill()
@@ -157,6 +154,6 @@ final class SimpleKeyboardTests: XCTestCase {
         ("change_input", test_change_input),
         ("test_buttons", test_buttons),
         ("standard_keyboard_action_works", test_standard_keyboard_action_works),
-        ("standard_keyboard_works", test_simple_keyboard_works),
+        ("standard_keyboard_works", test_simple_keyboard_works)
     ]
 }
