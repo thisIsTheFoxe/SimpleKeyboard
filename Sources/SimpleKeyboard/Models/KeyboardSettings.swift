@@ -60,11 +60,11 @@ public class KeyboardSettings: ObservableObject {
     var language: Language
 
     public var textInput: SimpleKeyboardInput?
-    public var action: (()->Void)?
-    
+    public var action: (()-> Void)?
+
     var showNumbers: Bool
     var showSpace: Bool
-    
+
     ///`nil` mean there is no need to switch, so there will be no shift-key
     var isUpperCase: Bool?{
         willSet{
@@ -76,7 +76,7 @@ public class KeyboardSettings: ObservableObject {
     ///`textInput` should be `nil` when working directly with SwiftUI,
     ///in that case you would bind your input directly to the `textInput` of the Keyboard
     public init(language: Language, textInput: SimpleKeyboardInput?, showNumbers: Bool = false,
-                showSpace: Bool = false, isUpperCase: Bool? = nil, action: (()->Void)? = nil) {
+                showSpace: Bool = false, isUpperCase: Bool? = nil, action: (()-> Void)? = nil) {
         self.textInput = textInput
         self.language = language
         self.action = action

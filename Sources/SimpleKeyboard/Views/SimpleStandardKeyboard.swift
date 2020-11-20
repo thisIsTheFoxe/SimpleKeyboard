@@ -11,7 +11,7 @@ public struct SimpleStandardKeyboard: View {
     @Binding var settings: KeyboardSettings
     
     let bgColor = Color.gray.opacity(0.2)
-    
+
     public init(settings: Binding<KeyboardSettings>, textInput textInputOverride: Binding<String>? = nil) {
         self._settings = settings
 
@@ -19,7 +19,7 @@ public struct SimpleStandardKeyboard: View {
             self.settings.changeTextInput(to: overrideStr)
         }
     }
-    
+
     var spaceRow: some View{
         HStack {
             if settings.showSpace {
@@ -32,7 +32,7 @@ public struct SimpleStandardKeyboard: View {
             }.padding(.trailing, 5)
         }
     }
-    
+
     var numbersRow: some View{
         HStack(spacing: 10) {
             ForEach(Language.numbers(areUppercased: self.settings.isUpperCase ?? false), id: \.self) { key in
@@ -40,7 +40,7 @@ public struct SimpleStandardKeyboard: View {
             }
         }
     }
-    
+
     var keyboardRows: some View{
         ForEach(0..<settings.language.rows(areUppercased: settings.isUpperCase ?? false).count, id: \.self) { idx in
             HStack(spacing: 10) {
@@ -58,14 +58,14 @@ public struct SimpleStandardKeyboard: View {
             }
         }
     }
-    
+
     fileprivate func rowFor(_ index: Int) -> ForEach<[String], String, KeyButton> {
         let rows = self.settings.language.rows(areUppercased: settings.isUpperCase ?? false)[index]
         return ForEach(rows, id: \.self) { key in
             KeyButton(text: self.$settings.text, letter: key)
         }
     }
-    
+
     public var body: some View {
         VStack(spacing: 10) {
             if settings.showNumbers {

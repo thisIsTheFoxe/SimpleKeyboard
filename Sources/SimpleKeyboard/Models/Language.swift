@@ -11,9 +11,9 @@ public enum Language: CaseIterable {
         return areUppercased ? ["!", "?", ".", "%", "+", "-", "_", "=", "@", "#"] :
             ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"]
     }
-    
+
     case english, german
-    
+
     func rows(areUppercased: Bool) -> [[String]] {
         var result = [[String]]()
         switch self{
@@ -30,11 +30,11 @@ public enum Language: CaseIterable {
                 ["y", "x", "c", "v", "b", "n", "m"]
             ]
         }
-        
+
         if areUppercased {
             result = result.map{ $0.map { $0.uppercased() } }
         }
-        
+
         return result
     }
 }
