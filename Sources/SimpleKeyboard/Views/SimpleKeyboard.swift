@@ -3,9 +3,9 @@ import SwiftUI
 public struct SimpleKeyboard: View {
     var keys: [[String]]
     @Binding var text: String
-    var action : (()-> Void)?
+    var action : (() -> Void)?
 
-    public init(keys: [[String]], textInput: Binding<String>, action: (()-> Void)? = nil) {
+    public init(keys: [[String]], textInput: Binding<String>, action: (() -> Void)? = nil) {
         self.keys = keys
         self._text = textInput
         self.action = action

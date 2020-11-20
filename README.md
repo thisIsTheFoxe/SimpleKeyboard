@@ -38,7 +38,7 @@ struct MyKeyboardMaker {
     
     @ObservedObject var settings: KeyboardSettings
     
-    func makeViewController()-> UIHostingController<SimpleStandardKeyboard> {
+    func makeViewController() -> UIHostingController<SimpleStandardKeyboard> {
         UIHostingController(rootView: SimpleStandardKeyboard(settings: $settings)
     }
 }

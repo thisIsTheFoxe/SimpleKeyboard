@@ -79,7 +79,7 @@ struct DeleteKeyButton: View {
 
 struct ActionKeyButton: View {
     @State var icon: Icon
-    var action: ()-> Void
+    var action: () -> Void
 
     var body: some View {
         Button(action: self.action) {
