@@ -20,13 +20,13 @@ final class SimpleKeyboardTests: XCTestCase {
         #if canImport(UIKit)
         let textField = UITextField()
         tester.settings.changeTextInput(to: textField)
-        
+
          tester.settings.text = "UIKit"
         XCTAssertEqual(textField.text, "UIKit")
         #elseif canImport(AppKit)
         let textField = NSTextField()
         tester.settings.changeTextInput(to: textField)
-        
+
         tester.settings.text = "AppKit"
         XCTAssertEqual(textField.stringValue, "AppKit")
         #endif
@@ -110,7 +110,12 @@ final class SimpleKeyboardTests: XCTestCase {
 
     func test_standard_keyboard_action_works() {
         let action = XCTestExpectation(description: "StdKeyboardAction")
-        let settings = KeyboardSettings(language: Language.german, textInput: tester as SimpleKeyboardInput, showNumbers: true, showSpace: true, isUpperCase: tester.settings.isUpperCase) {
+        let settings = KeyboardSettings(
+            language: Language.german,
+            textInput: tester as SimpleKeyboardInput,
+            showNumbers: true,
+            showSpace: true,
+            isUpperCase: tester.settings.isUpperCase) {
             action.fulfill()
         }
         
@@ -134,7 +139,7 @@ final class SimpleKeyboardTests: XCTestCase {
 
     func test_simple_keyboard_works() {
         let action = XCTestExpectation(description: "SimpleKeyboardAction")
-        let simple = SimpleKeyboard(keys: [["0"],["1", "2"]], textInput: $tester.text) {
+        let simple = SimpleKeyboard(keys: [["0"], ["1", "2"]], textInput: $tester.text) {
             action.fulfill()
         }
         

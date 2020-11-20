@@ -62,7 +62,7 @@ struct DeleteKeyButton: View {
         AnyView(Button(action: {
             guard !self.text.isEmpty else { return }
             _ = self.text.removeLast()
-        }) { () -> AnyView in 
+        }) { () -> AnyView in
             #if os(macOS)
             return AnyView(Text("⌫"))
             #else
