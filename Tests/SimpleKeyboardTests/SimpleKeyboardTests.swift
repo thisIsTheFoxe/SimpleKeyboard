@@ -42,7 +42,7 @@ final class SimpleKeyboardTests: XCTestCase {
     func test_create_settings() {
         let newTester = InputTester()
         tester.settings.changeTextInput(to: newTester)
-        
+
         tester.settings.text = "abc"
         XCTAssertEqual(newTester.text, tester.settings.text)
     }
@@ -65,19 +65,19 @@ final class SimpleKeyboardTests: XCTestCase {
 
     func test_buttons() {
         let expect = XCTestExpectation()
-        
+
         let key = KeyButton(text: $tester.text, letter: "x")
         XCTAssertNotNil(key.body)
         XCTAssertEqual(key.letter, "x")
-        
+
         tester.settings.isUpperCase = false
 
         let shift = ShiftKeyButton(isUpperCase: $tester.settings.isUpperCase)
         XCTAssertNotNil(shift.body)
-        
+
         tester.settings.isUpperCase = true
         XCTAssertEqual(tester.settings.isUpperCase, shift.isUpperCase)
-        
+
         let space = SpaceKeyButton(text: $tester.text)
         XCTAssertNotNil(space.body)
 
@@ -85,7 +85,7 @@ final class SimpleKeyboardTests: XCTestCase {
         XCTAssertNotNil(delete.body)
 
         tester.text = "xyz"
-        
+
         XCTAssertEqual(key.text, space.text)
         XCTAssertEqual(key.text, delete.text)
         XCTAssertEqual(key.text, "xyz")
@@ -93,7 +93,7 @@ final class SimpleKeyboardTests: XCTestCase {
         let action = ActionKeyButton(icon: .done) {
             expect.fulfill()
         }
-        
+
         action.action()
         XCTAssertNotNil(action.body)
 
@@ -104,7 +104,7 @@ final class SimpleKeyboardTests: XCTestCase {
         let standard = SimpleStandardKeyboard(settings: $tester.settings, textInput: $tester.text)
         standard.settings.text = "qwerty"
         XCTAssertEqual(standard.settings.text, tester.text)
-        
+
         XCTAssertNotNil(standard.body)
     }
 
@@ -118,16 +118,16 @@ final class SimpleKeyboardTests: XCTestCase {
             isUpperCase: tester.settings.isUpperCase) {
             action.fulfill()
         }
-        
+
         tester.settings = settings
-        
+
         let standard = SimpleStandardKeyboard(settings: $tester.settings)
         XCTAssertNotNil(standard.body)
         standard.settings.action?()
-        
+
         standard.settings.isUpperCase = true
         XCTAssert(tester.settings.isUpperCase!)
-        
+
         let newTester = InputTester()
         standard.settings.changeTextInput(to: newTester)
         standard.settings.text = "xyz"
@@ -142,9 +142,9 @@ final class SimpleKeyboardTests: XCTestCase {
         let simple = SimpleKeyboard(keys: [["0"], ["1", "2"]], textInput: $tester.text) {
             action.fulfill()
         }
-        
+
         XCTAssertNotNil(simple.body)
-        
+
         simple.action?()
         wait(for: [action], timeout: 2)
     }
