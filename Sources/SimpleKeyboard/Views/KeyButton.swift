@@ -12,7 +12,7 @@ struct ShiftKeyButton: View {
 
     var body: some View {
         AnyView(Button(action: { self.isUpperCase?.toggle() }) { () -> AnyView in
-            #if !canImport(SwiftUI)
+            #if !targetEnvironment(macCatalyst)
             return AnyView(Text(isUpperCase! ? "Up": "lw", bundle: .module))
             #else
             return AnyView(Image(systemName: isUpperCase ? "shift.fill" : "shift").imageScale(.large))
@@ -63,7 +63,7 @@ struct DeleteKeyButton: View {
             guard !self.text.isEmpty else { return }
             _ = self.text.removeLast()
         }) { () -> AnyView in
-            #if !canImport(SwiftUI)
+            #if !targetEnvironment(macCatalyst)
             return AnyView(Text("⌫"))
             #else
             return AnyView(Image(systemName: "delete.left")
@@ -97,7 +97,7 @@ enum Icon {
         switch self {
         case .done: return AnyView(Text("Done!", bundle: .module))
         case .search:
-            #if !canImport(SwiftUI)
+            #if !targetEnvironment(macCatalyst)
             return AnyView(Text("Search", bundle: .module))
             #else
             return AnyView(Image(systemName: "magnifyingglass"))
