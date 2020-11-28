@@ -25,6 +25,14 @@ public struct SimpleKeyboard: View {
                     self.action?()
                 }
             }
-        }.padding(.vertical, 5).background(Color.gray.opacity(0.2))
+        }
+        .padding(.vertical, 5)
+        .background(Color.gray.opacity(0.2))
+    }
+}
+
+struct SimpleKeyboard_Previews: PreviewProvider {
+    static var previews: some View {
+        SimpleKeyboard(keys: [["a", "b", "c"], ["d", "e", "f"]], textInput: .constant(""))
     }
 }

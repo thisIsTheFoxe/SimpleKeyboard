@@ -80,8 +80,7 @@ public struct SimpleStandardKeyboard: View {
     }
 }
 
-struct SimpleStandardKeyboard_Preview: PreviewProvider {
-    
+struct SimpleStandardKeyboard_Previews: PreviewProvider {
     static var previews: some View {
         SimpleStandardKeyboard(settings: .constant(KeyboardSettings(language: .english, textInput: nil)))
             .environment(\.locale, .init(identifier: "de"))
