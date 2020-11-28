@@ -13,7 +13,7 @@ struct ShiftKeyButton: View {
     var body: some View {
         AnyView(Button(action: { self.isUpperCase?.toggle() }) { () -> AnyView in
             #if !targetEnvironment(macCatalyst)
-            return AnyView(Text(isUpperCase! ? "Up": "lw", bundle: .module))
+            return AnyView(Text(isUpperCase! ? "Up": "lw"/*, bundle: .module*/))
             #else
             return AnyView(Image(systemName: isUpperCase ? "shift.fill" : "shift").imageScale(.large))
             #endif
@@ -48,7 +48,7 @@ struct SpaceKeyButton: View {
 
     var body: some View {
         Button(action: { self.text.append(" ") }) {
-            Text("space", bundle: .module).padding().padding(.horizontal, 75)
+            Text("space"/*, bundle: .module*/).padding().padding(.horizontal, 75)
                 .foregroundColor(.primary)
                 .background(Color.gray.opacity(0.5)).cornerRadius(7)
         }
@@ -95,14 +95,14 @@ enum Icon {
 
     var view: some View {
         switch self {
-        case .done: return AnyView(Text("Done!", bundle: .module))
+        case .done: return AnyView(Text("Done!"/* , bundle: .module*/))
         case .search:
             #if !targetEnvironment(macCatalyst)
-            return AnyView(Text("Search", bundle: .module))
+            return AnyView(Text("Search"/*, bundle: .module*/))
             #else
             return AnyView(Image(systemName: "magnifyingglass"))
             #endif
-        case .go: return AnyView(Text("Go!", bundle: .module))
+        case .go: return AnyView(Text("Go!"/*, bundle: .module*/))
         }
     }
 }

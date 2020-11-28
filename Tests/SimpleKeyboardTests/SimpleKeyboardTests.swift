@@ -149,6 +149,11 @@ final class SimpleKeyboardTests: XCTestCase {
         wait(for: [action], timeout: 2)
     }
 
+    func test_keyboard_preview() {
+        XCTAssertNotNil(SimpleKeyboard_Previews.previews)
+        XCTAssertNotNil(SimpleStandardKeyboard_Previews.previews)
+    }
+
     static var allTests = [
         ("test_native_input", test_native_input),
         ("test_lnaguages_not_empty", test_lnaguages_not_empty),
@@ -159,6 +164,7 @@ final class SimpleKeyboardTests: XCTestCase {
         ("change_input", test_change_input),
         ("test_buttons", test_buttons),
         ("standard_keyboard_action_works", test_standard_keyboard_action_works),
-        ("standard_keyboard_works", test_simple_keyboard_works)
+        ("standard_keyboard_works", test_simple_keyboard_works),
+        ("test_keyboard_preview", test_keyboard_preview)
     ]
 }
