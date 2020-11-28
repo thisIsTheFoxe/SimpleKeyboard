@@ -12,8 +12,8 @@ struct ShiftKeyButton: View {
 
     var body: some View {
         AnyView(Button(action: { self.isUpperCase?.toggle() }) { () -> AnyView in
-            #if os(macOS)
-            return AnyView(Text(isUpperCase! ? "Up": "lw"))
+            #if !canImport(SwiftUI)
+            return AnyView(Text(isUpperCase! ? "Up": "lw", bundle: .module))
             #else
             return AnyView(Image(systemName: isUpperCase ? "shift.fill" : "shift").imageScale(.large))
             #endif
@@ -48,7 +48,7 @@ struct SpaceKeyButton: View {
 
     var body: some View {
         Button(action: { self.text.append(" ") }) {
-            Text("space").padding().padding(.horizontal, 75)
+            Text("space", bundle: .module).padding().padding(.horizontal, 75)
                 .foregroundColor(.primary)
                 .background(Color.gray.opacity(0.5)).cornerRadius(7)
         }
@@ -63,14 +63,14 @@ struct DeleteKeyButton: View {
             guard !self.text.isEmpty else { return }
             _ = self.text.removeLast()
         }) { () -> AnyView in
-            #if os(macOS)
+            #if !canImport(SwiftUI)
             return AnyView(Text("⌫"))
             #else
             return AnyView(Image(systemName: "delete.left")
                 .foregroundColor(.primary)
                 .imageScale(.large)
                 .font(Font.headline.weight(.semibold))
-                .padding()
+                .padding(10)
                 .background(Color.gray.opacity(0.5)).cornerRadius(7))
             #endif
         })
@@ -95,14 +95,14 @@ enum Icon {
 
     var view: some View {
         switch self {
-        case .done: return AnyView(Text("Done!"))
+        case .done: return AnyView(Text("Done!", bundle: .module))
         case .search:
-            #if os(macOS)
-            return AnyView(Text("Search"))
+            #if !canImport(SwiftUI)
+            return AnyView(Text("Search", bundle: .module))
             #else
             return AnyView(Image(systemName: "magnifyingglass"))
             #endif
-        case .go: return AnyView(Text("Go!"))
+        case .go: return AnyView(Text("Go!", bundle: .module))
         }
     }
 }

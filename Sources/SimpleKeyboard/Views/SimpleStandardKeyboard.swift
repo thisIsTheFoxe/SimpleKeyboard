@@ -52,7 +52,8 @@ public struct SimpleStandardKeyboard: View {
                 }
                 self.rowFor(idx)
                 if idx == 2 {
-                    DeleteKeyButton(text: self.$settings.text).padding(.trailing)
+                    DeleteKeyButton(text: self.$settings.text)
+                        .padding(.trailing)
                     Spacer()
                 }
             }
@@ -76,5 +77,13 @@ public struct SimpleStandardKeyboard: View {
         }
         .padding(.vertical, 5)
         .background(bgColor)
+    }
+}
+
+struct SimpleStandardKeyboard_Preview: PreviewProvider {
+    
+    static var previews: some View {
+        SimpleStandardKeyboard(settings: .constant(KeyboardSettings(language: .english, textInput: nil)))
+            .environment(\.locale, .init(identifier: "de"))
     }
 }

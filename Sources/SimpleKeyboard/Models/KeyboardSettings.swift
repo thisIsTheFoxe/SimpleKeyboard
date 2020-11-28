@@ -20,7 +20,6 @@ extension Binding: SimpleKeyboardInput where Value == String {
 
     public mutating func replaceAll(with text: String) {
         self.wrappedValue = text
-        print("mutating func replaceALl = "+self.wrappedValue)
     }
 }
 
@@ -69,7 +68,6 @@ public class KeyboardSettings: ObservableObject {
     ///`nil` mean there is no need to switch, so there will be no shift-key
     var isUpperCase: Bool? {
         willSet {
-            print("ay!")
             objectWillChange.send()
         }
     }
@@ -89,6 +87,5 @@ public class KeyboardSettings: ObservableObject {
     func changeTextInput(to newInput: SimpleKeyboardInput) {
         self.textInput = newInput
         self.text = newInput.currentText
-        print("changed Input")
     }
 }
