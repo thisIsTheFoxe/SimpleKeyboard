@@ -1,7 +1,7 @@
 # SimpleKeyboard
 
-![Swift](https://github.com/thisIsTheFoxe/SimpleKeyboard/workflows/Swift/badge.svg)
-![SwiftLint](https://github.com/thisIsTheFoxe/SimpleKeyboard/workflows/SwiftLint/badge.svg)
+[![Swift](https://github.com/thisIsTheFoxe/SimpleKeyboard/workflows/Swift/badge.svg)](https://github.com/thisIsTheFoxe/SimpleKeyboard/actions?query=workflow%3ASwift)
+[![SwiftLint](https://github.com/thisIsTheFoxe/SimpleKeyboard/workflows/SwiftLint/badge.svg)](https://github.com/thisIsTheFoxe/SimpleKeyboard/actions?query=workflow%3ASwiftLint)
 [![codecov](https://codecov.io/gh/thisIsTheFoxe/SimpleKeyboard/branch/master/graph/badge.svg)](https://codecov.io/gh/thisIsTheFoxe/SimpleKeyboard)
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=thisIsTheFoxe_SimpleKeyboard&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=thisIsTheFoxe_SimpleKeyboard)
 
