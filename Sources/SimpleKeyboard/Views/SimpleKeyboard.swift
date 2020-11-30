@@ -3,28 +3,36 @@ import SwiftUI
 public struct SimpleKeyboard: View {
     var keys: [[String]]
     @Binding var text: String
-    var action : (()->())?
-    
-    public init(keys: [[String]], textInput: Binding<String>, action: (()->())? = nil){
+    var action: (() -> Void)?
+
+    public init(keys: [[String]], textInput: Binding<String>, action: (() -> Void)? = nil) {
         self.keys = keys
         self._text = textInput
         self.action = action
     }
-    
+
     public var body: some View {
-        VStack{
-            ForEach(keys, id: \.self){ row in
-                HStack{
-                    ForEach(row, id: \.self){ key in
+        VStack {
+            ForEach(keys, id: \.self) { row in
+                HStack {
+                    ForEach(row, id: \.self) { key in
                         KeyButton(text: self.$text, letter: key)
                     }
                 }
             }
-            HStack{
+            HStack {
                 ActionKeyButton(icon: .done) {
                     self.action?()
                 }
             }
-        }.padding(.vertical, 5).background(Color.gray.opacity(0.2))
+        }
+        .padding(.vertical, 5)
+        .background(Color.gray.opacity(0.2))
+    }
+}
+
+struct SimpleKeyboard_Previews: PreviewProvider {
+    static var previews: some View {
+        SimpleKeyboard(keys: [["a", "b", "c"], ["d", "e", "f"]], textInput: .constant(""))
     }
 }

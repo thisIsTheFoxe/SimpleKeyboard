@@ -9,16 +9,16 @@ import SwiftUI
 
 struct ShiftKeyButton: View {
     @Binding var isUpperCase: Bool!
-    
+
     var body: some View {
         AnyView(Button(action: { self.isUpperCase?.toggle() }) { () -> AnyView in
-            #if os(macOS)
-            return AnyView(Text(isUpperCase! ? "Up": "lw"))
+            #if !targetEnvironment(macCatalyst)
+            return AnyView(Text(isUpperCase! ? "Up": "lw"/*, bundle: .module*/))
             #else
             return AnyView(Image(systemName: isUpperCase ? "shift.fill" : "shift").imageScale(.large))
             #endif
         })
-            .foregroundColor(.primary)
+        .foregroundColor(.primary)
         .font(Font.headline.weight(.semibold))
         .padding()
         .background(Color.gray.opacity(0.5))
@@ -29,8 +29,8 @@ struct ShiftKeyButton: View {
 struct KeyButton: View {
     @Binding var text: String
     var letter: String
-    
-    var body: some View{
+
+    var body: some View {
         Button(action: { self.text.append(self.letter) }) {
             Text(letter)
                 .foregroundColor(.primary)
@@ -45,10 +45,10 @@ struct KeyButton: View {
 
 struct SpaceKeyButton: View {
     @Binding var text: String
-    
-    var body: some View{
+
+    var body: some View {
         Button(action: { self.text.append(" ") }) {
-            Text("space").padding().padding(.horizontal, 75)
+            Text("space"/*, bundle: .module*/).padding().padding(.horizontal, 75)
                 .foregroundColor(.primary)
                 .background(Color.gray.opacity(0.5)).cornerRadius(7)
         }
@@ -57,20 +57,20 @@ struct SpaceKeyButton: View {
 
 struct DeleteKeyButton: View {
     @Binding var text: String
-    
-    var body: some View{
+
+    var body: some View {
         AnyView(Button(action: {
             guard !self.text.isEmpty else { return }
             _ = self.text.removeLast()
-        }) { () -> AnyView in 
-            #if os(macOS)
+        }) { () -> AnyView in
+            #if !targetEnvironment(macCatalyst)
             return AnyView(Text("⌫"))
             #else
             return AnyView(Image(systemName: "delete.left")
                 .foregroundColor(.primary)
                 .imageScale(.large)
                 .font(Font.headline.weight(.semibold))
-                .padding()
+                .padding(10)
                 .background(Color.gray.opacity(0.5)).cornerRadius(7))
             #endif
         })
@@ -79,9 +79,9 @@ struct DeleteKeyButton: View {
 
 struct ActionKeyButton: View {
     @State var icon: Icon
-    var action: ()->()
-    
-    var body: some View{
+    var action: () -> Void
+
+    var body: some View {
         Button(action: self.action) {
             icon.view.padding()
                 .foregroundColor(.white)
@@ -92,17 +92,17 @@ struct ActionKeyButton: View {
 
 enum Icon {
     case done, search, go
-    
-    var view: some View{
-        switch self{
-        case .done: return AnyView(Text("Done!"))
+
+    var view: some View {
+        switch self {
+        case .done: return AnyView(Text("Done!"/* , bundle: .module*/))
         case .search:
-            #if os(macOS)
-            return AnyView(Text("Search"))
+            #if !targetEnvironment(macCatalyst)
+            return AnyView(Text("Search"/*, bundle: .module*/))
             #else
             return AnyView(Image(systemName: "magnifyingglass"))
             #endif
-        case .go: return AnyView(Text("Go!"))
+        case .go: return AnyView(Text("Go!"/*, bundle: .module*/))
         }
     }
 }

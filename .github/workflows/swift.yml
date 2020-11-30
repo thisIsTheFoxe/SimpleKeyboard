@@ -5,7 +5,7 @@ on: [push]
 jobs:
   build:
 
-    runs-on: macos
+    runs-on: macos-latest
 
 # build also for iOS, not possible (yet)? .-.
         
@@ -22,6 +22,6 @@ jobs:
           -ignore-filename-regex="(.build/|Tests/)" \
           .build/debug/SimpleKeyboardPackageTests.xctest/Contents/MacOS/SimpleKeyboardPackageTests > ./coverage.lcov
     - name: Codecov
-      uses: codecov/codecov-action@v1.0.5
+      uses: codecov/codecov-action@v1
       with:
         token: ${{ secrets.CODECOV_TOKEN }}

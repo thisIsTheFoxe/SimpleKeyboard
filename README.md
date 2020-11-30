@@ -1,10 +1,9 @@
 # SimpleKeyboard
 
+[![Swift](https://github.com/thisIsTheFoxe/SimpleKeyboard/workflows/Swift/badge.svg)](https://github.com/thisIsTheFoxe/SimpleKeyboard/actions?query=workflow%3ASwift)
+[![SwiftLint](https://github.com/thisIsTheFoxe/SimpleKeyboard/workflows/SwiftLint/badge.svg)](https://github.com/thisIsTheFoxe/SimpleKeyboard/actions?query=workflow%3ASwiftLint)
 [![codecov](https://codecov.io/gh/thisIsTheFoxe/SimpleKeyboard/branch/master/graph/badge.svg)](https://codecov.io/gh/thisIsTheFoxe/SimpleKeyboard)
-![](https://github.com/thisisthefoxe/SimpleKeyboard/workflows/Swift/badge.svg)
-![](https://github.com/thisisthefoxe/SimpleKeyboard/workflows/Sonarcloud/badge.svg)
-
-
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=thisIsTheFoxe_SimpleKeyboard&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=thisIsTheFoxe_SimpleKeyboard)
 
 The idea of this package came from a keyboard-extension and the fact that - AFAIK - one can't open another keyboard within a keyboard-extension. So the goal was to have a ViewController, that simply displays the keyboard and changes a `text` variable. 
 
@@ -19,12 +18,12 @@ Or one can choose to only display the keyboard with a the text input coming from
 ### Use SimpleKeyboard with UIKit
 Here is an example implementation from one of my projects:
 ```swift
-class MyViewController: UIViewController{
+class MyViewController: UIViewController {
     @IBOutlet var textField: UITextField!
     
     //..........
     
-    func presentKeyboard(){
+    func presentKeyboard() {
         let keyboardSettings = KeyboardSettings(language: .english, textInput: self.textField)
         let keyboardVC = MyKeyboardMaker(settings: keyboardSettings).makeViewController()
         self.contentController.pushViewController(keyboardVC, animated: true)
@@ -34,11 +33,11 @@ class MyViewController: UIViewController{
 ```
 
 ```swift
-struct MyKeyboardMaker{
+struct MyKeyboardMaker {
     
     @ObservedObject var settings: KeyboardSettings
     
-    func makeViewController()-> UIHostingController<SimpleStandardKeyboard>{
+    func makeViewController() -> UIHostingController<SimpleStandardKeyboard> {
         UIHostingController(rootView: SimpleStandardKeyboard(settings: $settings)
     }
 }

@@ -1,0 +1,14 @@
+# Lints the project using SwiftLint
+name: SwiftLint
+  
+on: [push]
+
+jobs:
+  Lint:
+    runs-on: ubuntu-latest
+    
+    steps:
+     - uses: actions/checkout@v2
+       
+     - name: GitHub Action for SwiftLint
+       uses: norio-nomura/action-swiftlint@3.1.0
