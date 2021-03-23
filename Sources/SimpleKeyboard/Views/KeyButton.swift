@@ -13,7 +13,7 @@ struct ShiftKeyButton: View {
     var body: some View {
         AnyView(Button(action: { self.isUpperCase?.toggle() }) { () -> AnyView in
             #if !targetEnvironment(macCatalyst)
-            return AnyView(Text(isUpperCase! ? "Up": "lw"/*, bundle: .module*/))
+            return AnyView(Text(isUpperCase! ? "Up": "lw", bundle: .module))
             #else
             return AnyView(Image(systemName: isUpperCase ? "shift.fill" : "shift").imageScale(.large))
             #endif
@@ -36,7 +36,41 @@ struct KeyButton: View {
                 .foregroundColor(.primary)
                 .font(.system(size: 25))
                 .padding(5)
-                .frame(minWidth: 27)
+                .frame(minWidth: 25)
+                .background(Color.gray.opacity(0.5))
+                .cornerRadius(5)
+        }
+    }
+}
+
+struct FRAccentKeyButton: View {
+    @Binding var text: String
+
+    var body: some View {
+        Button(action: {
+            var modified = ""
+            let suffix = self.text.popLast()
+            switch suffix {
+            case "a": modified = "à"
+            case "e": modified = "é"
+            case "i": modified = "î"
+            case "u": modified = "û"
+            case "o": modified = "ô"
+            case "c": modified = "ç"
+            default:
+                modified = "’"
+                if let s = suffix {
+                    self.text.append(s)
+                }
+            }
+
+            text.append(modified)
+        }) {
+            Text("´")
+                .foregroundColor(.primary)
+                .font(.system(size: 25))
+                .padding(5)
+                .frame(minWidth: 25)
                 .background(Color.gray.opacity(0.5))
                 .cornerRadius(5)
         }
@@ -48,7 +82,7 @@ struct SpaceKeyButton: View {
 
     var body: some View {
         Button(action: { self.text.append(" ") }) {
-            Text("space"/*, bundle: .module*/).padding().padding(.horizontal, 75)
+            Text("space", bundle: .module).padding().padding(.horizontal, 75)
                 .foregroundColor(.primary)
                 .background(Color.gray.opacity(0.5)).cornerRadius(7)
         }
@@ -95,14 +129,14 @@ enum Icon {
 
     var view: some View {
         switch self {
-        case .done: return AnyView(Text("Done!"/* , bundle: .module*/))
+        case .done: return AnyView(Text("Done!", bundle: .module))
         case .search:
             #if !targetEnvironment(macCatalyst)
-            return AnyView(Text("Search"/*, bundle: .module*/))
+            return AnyView(Text("Search", bundle: .module))
             #else
             return AnyView(Image(systemName: "magnifyingglass"))
             #endif
-        case .go: return AnyView(Text("Go!"/*, bundle: .module*/))
+        case .go: return AnyView(Text("Go!", bundle: .module))
         }
     }
 }

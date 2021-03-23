@@ -43,7 +43,7 @@ public struct SimpleStandardKeyboard: View {
 
     var keyboardRows: some View {
         ForEach(0..<settings.language.rows(areUppercased: settings.isUpperCase ?? false).count, id: \.self) { idx in
-            HStack(spacing: 10) {
+            HStack(spacing: self.settings.language.spacing) {
                 if idx == 2 {
                     Spacer()
                     if self.settings.isUpperCase != nil {
@@ -52,6 +52,9 @@ public struct SimpleStandardKeyboard: View {
                 }
                 self.rowFor(idx)
                 if idx == 2 {
+                    if settings.language == .french {
+                        FRAccentKeyButton(text: $settings.text)
+                    }
                     DeleteKeyButton(text: self.$settings.text)
                         .padding(.trailing)
                     Spacer()
@@ -82,7 +85,7 @@ public struct SimpleStandardKeyboard: View {
 
 struct SimpleStandardKeyboard_Previews: PreviewProvider {
     static var previews: some View {
-        SimpleStandardKeyboard(settings: .constant(KeyboardSettings(language: .english, textInput: nil)))
-            .environment(\.locale, .init(identifier: "de"))
+        SimpleStandardKeyboard(settings: .constant(KeyboardSettings(language: .hindi, textInput: nil)))
+            .environment(\.locale, .init(identifier: "ru"))
     }
 }
