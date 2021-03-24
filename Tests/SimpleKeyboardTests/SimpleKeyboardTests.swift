@@ -21,7 +21,7 @@ final class SimpleKeyboardTests: XCTestCase {
         let textField = UITextField()
         tester.settings.changeTextInput(to: textField)
 
-         tester.settings.text = "UIKit"
+        tester.settings.text = "UIKit"
         XCTAssertEqual(textField.text, "UIKit")
         #elseif canImport(AppKit)
         let textField = NSTextField()
@@ -154,6 +154,20 @@ final class SimpleKeyboardTests: XCTestCase {
         XCTAssertNotNil(SimpleStandardKeyboard_Previews.previews)
     }
 
+
+    func test_french_accent_key() {
+        let frButton = FRAccentKeyButton(text: $tester.text)
+        XCTAssertNotNil(frButton)
+
+        for char in ["a", "e", "i", "o", "u", "c"] {
+            tester.text.append(char)
+            frButton.action()
+            let modChar = String(tester.text.suffix(1))
+            print(modChar)
+            XCTAssertNotEqual(modChar, char)
+        }
+    }
+
     static var allTests = [
         ("test_native_input", test_native_input),
         ("test_lnaguages_not_empty", test_lnaguages_not_empty),
@@ -165,6 +179,7 @@ final class SimpleKeyboardTests: XCTestCase {
         ("test_buttons", test_buttons),
         ("standard_keyboard_action_works", test_standard_keyboard_action_works),
         ("standard_keyboard_works", test_simple_keyboard_works),
-        ("test_keyboard_preview", test_keyboard_preview)
+        ("test_keyboard_preview", test_keyboard_preview),
+        ("test_french_accent_key", test_french_accent_key)
     ]
 }

@@ -48,23 +48,7 @@ struct FRAccentKeyButton: View {
 
     var body: some View {
         Button(action: {
-            var modified = ""
-            let suffix = self.text.popLast()
-            switch suffix {
-            case "a": modified = "à"
-            case "e": modified = "é"
-            case "i": modified = "î"
-            case "u": modified = "û"
-            case "o": modified = "ô"
-            case "c": modified = "ç"
-            default:
-                modified = "’"
-                if let suffix = suffix {
-                    self.text.append(suffix)
-                }
-            }
-
-            text.append(modified)
+            self.action()
         }) {
             Text("´")
                 .foregroundColor(.primary)
@@ -74,6 +58,26 @@ struct FRAccentKeyButton: View {
                 .background(Color.gray.opacity(0.5))
                 .cornerRadius(5)
         }
+    }
+
+    internal func action() {
+        var modified = ""
+        let suffix = self.text.popLast()
+        switch suffix {
+        case "a": modified = "à"
+        case "e": modified = "é"
+        case "i": modified = "î"
+        case "u": modified = "û"
+        case "o": modified = "ô"
+        case "c": modified = "ç"
+        default:
+            modified = "’"
+            if let suffix = suffix {
+                self.text.append(suffix)
+            }
+        }
+
+        text.append(modified)
     }
 }
 
