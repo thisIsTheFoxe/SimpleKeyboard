@@ -59,8 +59,8 @@ struct FRAccentKeyButton: View {
             case "c": modified = "ç"
             default:
                 modified = "’"
-                if let s = suffix {
-                    self.text.append(s)
+                if let suffix = suffix {
+                    self.text.append(suffix)
                 }
             }
 
