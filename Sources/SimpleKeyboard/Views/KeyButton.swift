@@ -86,9 +86,12 @@ struct SpaceKeyButton: View {
 
     var body: some View {
         Button(action: { self.text.append(" ") }) {
-            Text("space", bundle: .module).padding().padding(.horizontal, 75)
+            Text("space", bundle: .module)
+                .padding()
+                .padding(.horizontal, 75)
                 .foregroundColor(.primary)
-                .background(Color.gray.opacity(0.5)).cornerRadius(7)
+                .background(Color.gray.opacity(0.5))
+                .cornerRadius(7)
         }
     }
 }
@@ -96,22 +99,23 @@ struct SpaceKeyButton: View {
 struct DeleteKeyButton: View {
     @Binding var text: String
 
-    var body: some View {
-        AnyView(Button(action: {
+    var body: some View{
+        Button(action: {
             guard !self.text.isEmpty else { return }
             _ = self.text.removeLast()
-        }) { () -> AnyView in
-            #if !targetEnvironment(macCatalyst)
-            return AnyView(Text("⌫"))
-            #else
-            return AnyView(Image(systemName: "delete.left")
+        }) {
+            Image(systemName: "delete.left")
                 .foregroundColor(.primary)
                 .imageScale(.large)
                 .font(Font.headline.weight(.semibold))
-                .padding(10)
-                .background(Color.gray.opacity(0.5)).cornerRadius(7))
-            #endif
-        })
+                .padding(9)
+                .overlay(
+                RoundedRectangle(cornerRadius: 7)
+                    .stroke(Color.primary, lineWidth: 4)
+                )
+                .background(Color.gray.opacity(0.5)).cornerRadius(7)
+                .shadow(radius: 1)
+        }
     }
 }
 
