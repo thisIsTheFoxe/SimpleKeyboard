@@ -25,6 +25,7 @@ public struct SimpleStandardKeyboard: View {
             if settings.showSpace {
                 Spacer()
                 SpaceKeyButton(text: $settings.text)
+                    .padding(.leading, 50)
                 Spacer()
             }
             ActionKeyButton(icon: .done) {
@@ -55,9 +56,9 @@ public struct SimpleStandardKeyboard: View {
                     if settings.language == .french {
                         FRAccentKeyButton(text: $settings.text)
                     }
+                    
                     DeleteKeyButton(text: self.$settings.text)
-                        .padding(.trailing)
-                    Spacer()
+                        .padding(.horizontal, 5)
                 }
             }
         }
@@ -78,14 +79,14 @@ public struct SimpleStandardKeyboard: View {
             keyboardRows
             spaceRow
         }
-        .padding(.vertical, 5)
+        .padding(5)
         .background(bgColor)
     }
 }
 
 struct SimpleStandardKeyboard_Previews: PreviewProvider {
     static var previews: some View {
-        SimpleStandardKeyboard(settings: .constant(KeyboardSettings(language: .hindi, textInput: nil)))
+        SimpleStandardKeyboard(settings: .constant(KeyboardSettings(language: .german, textInput: nil, showSpace: true)))
             .environment(\.locale, .init(identifier: "ru"))
     }
 }

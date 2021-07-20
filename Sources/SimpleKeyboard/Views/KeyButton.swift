@@ -36,7 +36,7 @@ struct KeyButton: View {
                 .foregroundColor(.primary)
                 .font(.system(size: 25))
                 .padding(5)
-                .frame(minWidth: 25)
+                .frame(minWidth: 25, maxWidth: 50)
                 .background(Color.gray.opacity(0.5))
                 .cornerRadius(5)
         }
@@ -54,7 +54,7 @@ struct FRAccentKeyButton: View {
                 .foregroundColor(.primary)
                 .font(.system(size: 25))
                 .padding(5)
-                .frame(minWidth: 25)
+                .frame(minWidth: 25, maxWidth: 50)
                 .background(Color.gray.opacity(0.5))
                 .cornerRadius(5)
         }
@@ -88,7 +88,7 @@ struct SpaceKeyButton: View {
         Button(action: { self.text.append(" ") }) {
             Text("space", bundle: .module)
                 .padding()
-                .padding(.horizontal, 75)
+                .frame(minWidth: 150, maxWidth: .infinity)
                 .foregroundColor(.primary)
                 .background(Color.gray.opacity(0.5))
                 .cornerRadius(7)
@@ -113,7 +113,7 @@ struct DeleteKeyButton: View {
                 RoundedRectangle(cornerRadius: 7)
                     .stroke(Color.primary, lineWidth: 4)
                 )
-                .background(Color.gray.opacity(0.5)).cornerRadius(7)
+                .background(Color.gray.opacity(0.5)).cornerRadius(8)
                 .shadow(radius: 1)
         }
     }

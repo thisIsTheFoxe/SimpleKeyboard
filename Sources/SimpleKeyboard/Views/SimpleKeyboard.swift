@@ -26,7 +26,7 @@ public struct SimpleKeyboard: View {
                 }
             }
         }
-        .padding(.vertical, 5)
+        .padding(5)
         .background(Color.gray.opacity(0.2))
     }
 }
