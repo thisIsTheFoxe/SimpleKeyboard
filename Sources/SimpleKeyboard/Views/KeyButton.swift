@@ -110,8 +110,8 @@ struct DeleteKeyButton: View {
                 .font(Font.headline.weight(.semibold))
                 .padding(9)
                 .overlay(
-                RoundedRectangle(cornerRadius: 7)
-                    .stroke(Color.primary, lineWidth: 4)
+                    RoundedRectangle(cornerRadius: 7)
+                        .stroke(Color.primary, lineWidth: 4)
                 )
                 .background(Color.gray.opacity(0.5)).cornerRadius(8)
                 .shadow(radius: 1)
@@ -127,7 +127,7 @@ struct ActionKeyButton: View {
         Button(action: self.action) {
             icon.view.padding()
                 .foregroundColor(.white)
-            .background(Color.blue).cornerRadius(7)
+                .background(Color.blue).cornerRadius(7)
         }
     }
 }

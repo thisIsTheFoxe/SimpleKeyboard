@@ -56,7 +56,7 @@ public struct SimpleStandardKeyboard: View {
                     if settings.language == .french {
                         FRAccentKeyButton(text: $settings.text)
                     }
-                    
+
                     DeleteKeyButton(text: self.$settings.text)
                         .padding(.horizontal, 5)
                 }
