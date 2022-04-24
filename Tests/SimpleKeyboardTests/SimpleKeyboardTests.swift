@@ -101,7 +101,7 @@ final class SimpleKeyboardTests: XCTestCase {
     }
 
     func test_standard_keyboard_init() {
-        let standard = SimpleStandardKeyboard(settings: $tester.settings, textInput: $tester.text)
+        let standard = SimpleStandardKeyboard(settings: tester.settings, textInput: $tester.text)
         standard.settings.text = "qwerty"
         XCTAssertEqual(standard.settings.text, tester.text)
 
@@ -121,7 +121,7 @@ final class SimpleKeyboardTests: XCTestCase {
 
         tester.settings = settings
 
-        let standard = SimpleStandardKeyboard(settings: $tester.settings)
+        let standard = SimpleStandardKeyboard(settings: tester.settings)
         XCTAssertNotNil(standard.body)
         standard.settings.action?()
 

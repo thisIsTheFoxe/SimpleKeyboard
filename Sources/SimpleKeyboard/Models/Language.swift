@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  Language.swift
 //  
 //
 //  Created by Henrik Storch on 12/24/19.
@@ -15,10 +15,10 @@ public enum Language: CaseIterable {
     }
 
     var spacing: CGFloat {
-        if let maxRows = self.rows(areUppercased: false).max(by: { $0.count < $1.count })?.count, maxRows < 10 {
-            return 10
+        if let maxRows = self.rows(areUppercased: false).max(by: { $0.count < $1.count })?.count, maxRows < 9 {
+            return 5
         }
-        return 7
+        return 3
     }
 
     case english, german, spanish, french, russian, hindi

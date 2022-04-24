@@ -57,26 +57,27 @@ public class KeyboardSettings: ObservableObject {
         }
     }
 
-    var language: Language
+    @Published var language: Language
+    
+    var theme: KeyboardTheme
 
     public var textInput: SimpleKeyboardInput?
     public var action: (() -> Void)?
+    
+    @Published var isShown = true
 
-    var showNumbers: Bool
-    var showSpace: Bool
+    @Published var showNumbers: Bool
+    @Published var showSpace: Bool
 
     ///`nil` mean there is no need to switch, so there will be no shift-key
-    var isUpperCase: Bool? {
-        willSet {
-            objectWillChange.send()
-        }
-    }
+    @Published var isUpperCase: Bool?
 
     ///`textInput` should be `nil` when working directly with SwiftUI,
     ///in that case you would bind your input directly to the `textInput` of the Keyboard
-    public init(language: Language, textInput: SimpleKeyboardInput?, showNumbers: Bool = false,
+    public init(language: Language, textInput: SimpleKeyboardInput?, theme: KeyboardTheme = .system, showNumbers: Bool = false,
                 showSpace: Bool = false, isUpperCase: Bool? = nil, action: (() -> Void)? = nil) {
         self.textInput = textInput
+        self.theme = theme
         self.language = language
         self.action = action
         self.showNumbers = showNumbers

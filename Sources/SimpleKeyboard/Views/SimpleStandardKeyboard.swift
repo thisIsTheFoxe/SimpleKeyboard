@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  SimpleStandardKeyboard.swift
 //  
 //
 //  Created by Henrik Storch on 12/25/19.
@@ -7,13 +7,13 @@
 
 import SwiftUI
 
-public struct SimpleStandardKeyboard: View {
-    @Binding var settings: KeyboardSettings
+public struct SimpleStandardKeyboard: View, ThemeableView {
+    var theme: KeyboardTheme { settings.theme }
 
-    let bgColor = Color.gray.opacity(0.2)
+    @ObservedObject var settings: KeyboardSettings
 
-    public init(settings: Binding<KeyboardSettings>, textInput textInputOverride: Binding<String>? = nil) {
-        self._settings = settings
+    public init(settings: KeyboardSettings, textInput textInputOverride: Binding<String>? = nil) {
+        self.settings = settings
 
         if let overrideStr = textInputOverride {
             self.settings.changeTextInput(to: overrideStr)
@@ -23,13 +23,11 @@ public struct SimpleStandardKeyboard: View {
     var spaceRow: some View {
         HStack {
             if settings.showSpace {
-                Spacer()
                 SpaceKeyButton(text: $settings.text)
-                Spacer()
             }
             ActionKeyButton(icon: .done) {
                 self.settings.action?()
-            }.padding(.trailing, 5)
+            }
         }
     }
 
@@ -43,49 +41,82 @@ public struct SimpleStandardKeyboard: View {
 
     var keyboardRows: some View {
         ForEach(0..<settings.language.rows(areUppercased: settings.isUpperCase ?? false).count, id: \.self) { idx in
-            HStack(spacing: self.settings.language.spacing) {
+            HStack(spacing: 0) {
                 if idx == 2 {
-                    Spacer()
                     if self.settings.isUpperCase != nil {
-                        ShiftKeyButton(isUpperCase: self.$settings.isUpperCase).padding(.leading)
+                        ShiftKeyButton(isUpperCase: self.$settings.isUpperCase)
+                        Spacer(minLength: 2)
+                            .frame(maxWidth: 15)
+                            .layoutPriority(2)
                     }
+                } else if idx == 1 {
+                    Spacer(minLength: 3)
+                        .frame(maxWidth: 10)
+                        .layoutPriority(11)
                 }
                 self.rowFor(idx)
                 if idx == 2 {
-                    if settings.language == .french {
-                        FRAccentKeyButton(text: $settings.text)
+                    Group {
+                        Spacer(minLength: 2)
+                            .frame(maxWidth: 15)
+                            .layoutPriority(2)
+                        if settings.language == .french {
+                            FRAccentKeyButton(text: $settings.text)
+                            Spacer()
+                        }
+                        DeleteKeyButton(text: self.$settings.text)
                     }
-                    DeleteKeyButton(text: self.$settings.text)
-                        .padding(.trailing)
-                    Spacer()
+                } else if idx == 1 {
+                    Spacer(minLength: 3)
+                        .frame(maxWidth: 10)
+                        .layoutPriority(11)
                 }
             }
         }
     }
 
-    fileprivate func rowFor(_ index: Int) -> ForEach<[String], String, KeyButton> {
+    fileprivate func rowFor(_ index: Int) -> some View {
         let rows = self.settings.language.rows(areUppercased: settings.isUpperCase ?? false)[index]
         return ForEach(rows, id: \.self) { key in
+            Spacer(minLength: settings.language.spacing)
             KeyButton(text: self.$settings.text, letter: key)
+            Spacer(minLength: settings.language.spacing)
         }
     }
 
     public var body: some View {
-        VStack(spacing: 10) {
-            if settings.showNumbers {
-                numbersRow
+        if settings.isShown {
+            VStack(spacing: 10) {
+                if settings.showNumbers {
+                    numbersRow
+                        .padding(.bottom)
+                }
+                keyboardRows
+                spaceRow
             }
-            keyboardRows
-            spaceRow
+            .transition(.move(edge: .bottom).combined(with: .opacity))
+            .modifier(OuterKeyboardThemingModifier(theme: theme, backroundColor: keyboardBackground))
         }
-        .padding(.vertical, 5)
-        .background(bgColor)
     }
 }
 
 struct SimpleStandardKeyboard_Previews: PreviewProvider {
     static var previews: some View {
-        SimpleStandardKeyboard(settings: .constant(KeyboardSettings(language: .hindi, textInput: nil)))
-            .environment(\.locale, .init(identifier: "ru"))
+        ZStack {
+            LinearGradient(colors: [.red, .green, .purple], startPoint: .bottomLeading, endPoint: .topTrailing)
+            VStack {
+                Spacer()
+                SimpleStandardKeyboard(
+                    settings: KeyboardSettings(
+                        language: .russian,
+                        textInput: nil,
+                        theme: .system,
+                        showNumbers: true,
+                        showSpace: true,
+                        isUpperCase: true))
+                    .environment(\.locale, .init(identifier: "ru"))
+//                    .preferredColorScheme(.dark)
+            }
+        }
     }
 }
