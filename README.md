@@ -14,7 +14,7 @@ However, inspired by [a Tweet from @laurentdelrey](https://twitter.com/laurentde
 ### SimpleStandardKeyboard Screenshots
 |System (in light)|Floating (in dark)|
 |---|---|
-|![A screenshot of an iPhone 13 Pro Max, with a colorful background and a floating light keyboard](./dark.png)|![A screenshot of an iPhone 13 Pro Max, with a colorful background and a systemlike dark keyboard](./light.png)|
+|![A screenshot of an iPhone 13 Pro Max, with a colorful background and a systemlike dark keyboard](./light.png)|![A screenshot of an iPhone 13 Pro Max, with a colorful background and a floating light keyboard](./dark.png)|
 
 ## Components
 This  project includes a `SimpleKeyboard` that takes a custom 2D-list of Strings which will be rendered as the keys.

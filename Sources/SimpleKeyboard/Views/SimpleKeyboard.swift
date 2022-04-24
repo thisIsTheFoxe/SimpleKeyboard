@@ -14,13 +14,18 @@ public struct SimpleKeyboard: View, ThemeableView {
     @Binding var text: String
     var action: (() -> Void)?
 
-    public init(keys: [[String]], textInput: Binding<String>, isShown: Binding<Bool> = .constant(true), theme: KeyboardTheme = .system, action: (() -> Void)? = nil) {
-        self.keys = keys
-        self.theme = theme
-        self._isShown = isShown
-        self._text = textInput
-        self.action = action
-    }
+    public init(
+        keys: [[String]],
+        textInput: Binding<String>,
+        isShown: Binding<Bool> = .constant(true),
+        theme: KeyboardTheme = .system,
+        action: (() -> Void)? = nil) {
+            self.keys = keys
+            self.theme = theme
+            self._isShown = isShown
+            self._text = textInput
+            self.action = action
+        }
 
     var content: some View {
             VStack {
@@ -39,7 +44,7 @@ public struct SimpleKeyboard: View, ThemeableView {
             }
             .transition(.move(edge: .bottom).combined(with: .opacity))
     }
-    
+
     public var body: some View {
         if isShown {
             content.modifier(OuterKeyboardThemingModifier(theme: theme, backroundColor: keyboardBackground))
@@ -53,7 +58,10 @@ struct SimpleKeyboard_Previews: PreviewProvider {
             LinearGradient(colors: [.red, .green, .purple], startPoint: .bottomLeading, endPoint: .topTrailing)
             VStack {
 //                Spacer()
-                SimpleKeyboard(keys: [["a", "b", "c", "q", "w", "f", "m", "m"], ["d", "e", "f"]], textInput: .constant(""), theme: .floating)
+                SimpleKeyboard(
+                    keys: [["a", "b", "c", "q", "w", "f", "m", "m"], ["d", "e", "f"]],
+                    textInput: .constant(""),
+                    theme: .floating)
             }
         }
 //        .preferredColorScheme(.dark)

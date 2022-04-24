@@ -154,7 +154,6 @@ final class SimpleKeyboardTests: XCTestCase {
         XCTAssertNotNil(SimpleStandardKeyboard_Previews.previews)
     }
 
-
     func test_french_accent_key() {
         let frButton = FRAccentKeyButton(text: $tester.text)
         XCTAssertNotNil(frButton)

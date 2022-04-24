@@ -8,7 +8,7 @@
 import SwiftUI
 import SimpleKeyboard
 
-///NOTE: doesn't work with `struct` prob. because of copyOnWrite..?
+/// NOTE: doesn't work with `struct` prob. because of copyOnWrite..?
 class InputTester: ObservableObject, SimpleKeyboardInput {
     var currentText: String { return text }
 
