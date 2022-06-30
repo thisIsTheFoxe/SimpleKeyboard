@@ -36,7 +36,7 @@ final class SimpleKeyboardTests: XCTestCase {
         for lang in Language.allCases {
             XCTAssertFalse(lang.rows(areUppercased: false).isEmpty)
             XCTAssertFalse(lang.rows(areUppercased: true).isEmpty)
-            XCTAssertEqual(lang.spacing, 7)
+            XCTAssertEqual(lang.spacing, 3)
         }
     }
 
@@ -102,7 +102,7 @@ final class SimpleKeyboardTests: XCTestCase {
     }
 
     func test_standard_keyboard_init() {
-        let standard = SimpleStandardKeyboard(settings: $tester.settings, textInput: $tester.text)
+        let standard = SimpleStandardKeyboard(settings: tester.settings, textInput: $tester.text)
         standard.settings.text = "qwerty"
         XCTAssertEqual(standard.settings.text, tester.text)
 
@@ -125,7 +125,7 @@ final class SimpleKeyboardTests: XCTestCase {
 
         tester.settings = settings
 
-        let standard = SimpleStandardKeyboard(settings: $tester.settings)
+        let standard = SimpleStandardKeyboard(settings: tester.settings)
         XCTAssertNotNil(standard.body)
         standard.settings.action?()
 
@@ -164,7 +164,6 @@ final class SimpleKeyboardTests: XCTestCase {
         XCTAssertNotNil(SimpleKeyboard_Previews.previews)
         XCTAssertNotNil(SimpleStandardKeyboard_Previews.previews)
     }
-
 
     func test_french_accent_key() {
         let frButton = FRAccentKeyButton(text: $tester.text)
