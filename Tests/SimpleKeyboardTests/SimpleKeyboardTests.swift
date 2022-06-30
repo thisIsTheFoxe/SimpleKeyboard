@@ -36,6 +36,7 @@ final class SimpleKeyboardTests: XCTestCase {
         for lang in Language.allCases {
             XCTAssertFalse(lang.rows(areUppercased: false).isEmpty)
             XCTAssertFalse(lang.rows(areUppercased: true).isEmpty)
+            XCTAssertEqual(lang.spacing, 3)
         }
     }
 
@@ -106,6 +107,9 @@ final class SimpleKeyboardTests: XCTestCase {
         XCTAssertEqual(standard.settings.text, tester.text)
 
         XCTAssertNotNil(standard.body)
+        XCTAssertNotNil(standard.spaceRow)
+        XCTAssertNotNil(standard.numbersRow)
+        XCTAssertNotNil(standard.keyboardRows)
     }
 
     func test_standard_keyboard_action_works() {
@@ -139,14 +143,21 @@ final class SimpleKeyboardTests: XCTestCase {
 
     func test_simple_keyboard_works() {
         let action = XCTestExpectation(description: "SimpleKeyboardAction")
+        let action2 = XCTestExpectation(description: "SimpleLongKeyboardAction")
         let simple = SimpleKeyboard(keys: [["0"], ["1", "2"]], textInput: $tester.text) {
             action.fulfill()
         }
 
+        let simpleLong = SimpleKeyboard(keys: ["0123456789".map({ $0.description })], textInput: $tester.text) {
+            action2.fulfill()
+        }
+
         XCTAssertNotNil(simple.body)
+        XCTAssertNotNil(simpleLong.body)
 
         simple.action?()
-        wait(for: [action], timeout: 2)
+        simpleLong.action?()
+        wait(for: [action, action2], timeout: 2)
     }
 
     func test_keyboard_preview() {
@@ -158,12 +169,12 @@ final class SimpleKeyboardTests: XCTestCase {
         let frButton = FRAccentKeyButton(text: $tester.text)
         XCTAssertNotNil(frButton)
 
-        for char in ["a", "e", "i", "o", "u", "c"] {
+        for char in "aeiouc" {
             tester.text.append(char)
             frButton.action()
             let modChar = String(tester.text.suffix(1))
             print(modChar)
-            XCTAssertNotEqual(modChar, char)
+            XCTAssertNotEqual(modChar, String(char))
         }
     }
 
