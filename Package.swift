@@ -15,7 +15,6 @@ let package = Package(
             targets: ["SimpleKeyboard"])
     ],
     dependencies: [
-        // .package(url: /* package url */, from: "1.0.0"),
     ],
     targets: [
         // Targets can depend on other targets.

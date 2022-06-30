@@ -45,7 +45,10 @@ struct KeyButton: View, ClickableKey {
     @Environment(\.colorScheme) var colorScheme
 
     var body: some View {
-        Button(action: { self.text.append(self.letter); didClick() }) {
+        Button(action: {
+            self.text.append(self.letter)
+            didClick()
+        }) {
             Text(letter)
                 .font(.system(size: 25))
                 .fixedSize()

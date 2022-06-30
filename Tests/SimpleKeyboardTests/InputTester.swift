@@ -14,7 +14,7 @@ class InputTester: ObservableObject, SimpleKeyboardInput {
 
     @Published var text: String = ""
 
-    @Published var settings = KeyboardSettings(language: .english, textInput: nil)
+    @Published var settings = KeyboardSettings(language: .english, textInput: nil, showNumbers: true, showSpace: true, isUpperCase: false)
 
     func replaceAll(with text: String) {
         print("UPDATE!")

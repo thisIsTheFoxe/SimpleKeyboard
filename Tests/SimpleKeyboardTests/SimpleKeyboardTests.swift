@@ -70,6 +70,7 @@ final class SimpleKeyboardTests: XCTestCase {
         let key = KeyButton(text: $tester.text, letter: "x")
         XCTAssertNotNil(key.body)
         XCTAssertEqual(key.letter, "x")
+        XCTAssertNoThrow(key.didClick())
 
         tester.settings.isUpperCase = false
 
@@ -105,11 +106,14 @@ final class SimpleKeyboardTests: XCTestCase {
         let standard = SimpleStandardKeyboard(settings: tester.settings, textInput: $tester.text)
         standard.settings.text = "qwerty"
         XCTAssertEqual(standard.settings.text, tester.text)
-
         XCTAssertNotNil(standard.body)
         XCTAssertNotNil(standard.spaceRow)
-        XCTAssertNotNil(standard.numbersRow)
         XCTAssertNotNil(standard.keyboardRows)
+        XCTAssertNotNil(standard.numbersRow)
+        
+        tester.settings.language = .french
+        let standard2 = SimpleStandardKeyboard(settings: tester.settings, textInput: $tester.text)
+        XCTAssertNotNil(standard2.keyboardRows)
     }
 
     func test_standard_keyboard_action_works() {
@@ -143,21 +147,14 @@ final class SimpleKeyboardTests: XCTestCase {
 
     func test_simple_keyboard_works() {
         let action = XCTestExpectation(description: "SimpleKeyboardAction")
-        let action2 = XCTestExpectation(description: "SimpleLongKeyboardAction")
         let simple = SimpleKeyboard(keys: [["0"], ["1", "2"]], textInput: $tester.text) {
             action.fulfill()
         }
 
-        let simpleLong = SimpleKeyboard(keys: ["0123456789".map({ $0.description })], textInput: $tester.text) {
-            action2.fulfill()
-        }
-
         XCTAssertNotNil(simple.body)
-        XCTAssertNotNil(simpleLong.body)
 
         simple.action?()
-        simpleLong.action?()
-        wait(for: [action, action2], timeout: 2)
+        wait(for: [action], timeout: 2)
     }
 
     func test_keyboard_preview() {
@@ -178,6 +175,25 @@ final class SimpleKeyboardTests: XCTestCase {
         }
     }
 
+    func test_corner_radius() {
+        XCTAssertNotNil(RectCorner.allCorners)
+        XCTAssertNotNil(RectCorner.bottomLeft)
+        XCTAssertNotNil(RectCorner.topLeft)
+        XCTAssertNotNil(RectCorner.bottomRight)
+        XCTAssertNotNil(RectCorner.topRight)
+        XCTAssertNotNil(EmptyView().cornerRadius(10, corners: .allCorners))
+        XCTAssertEqual(
+            RoundedCorner(radius: 10, corners: .allCorners).path(in: CGRect(x: 0, y: 0, width: 100, height: 100)),
+            RoundedCorner(radius: 10, corners: .allCorners).path(in: CGRect(x: 0, y: 0, width: 100, height: 100)))
+    }
+
+    func test_theming_modifier() {
+        let mod = OuterKeyboardThemingModifier(theme: .floating, backroundColor: Color.black)
+        let mod2 = OuterKeyboardThemingModifier(theme: .system, backroundColor: Color.black)
+        XCTAssertNotNil(EmptyView().modifier(mod))
+        XCTAssertNotNil(EmptyView().modifier(mod2))
+    }
+
     static var allTests = [
         ("test_native_input", test_native_input),
         ("test_lnaguages_not_empty", test_lnaguages_not_empty),
@@ -190,6 +206,8 @@ final class SimpleKeyboardTests: XCTestCase {
         ("standard_keyboard_action_works", test_standard_keyboard_action_works),
         ("standard_keyboard_works", test_simple_keyboard_works),
         ("test_keyboard_preview", test_keyboard_preview),
-        ("test_french_accent_key", test_french_accent_key)
+        ("test_french_accent_key", test_french_accent_key),
+        ("test_corner_radius", test_corner_radius),
+        ("test_theming_modifier", test_theming_modifier)
     ]
 }

@@ -73,13 +73,6 @@ extension View {
 
 // https://stackoverflow.com/a/56763282/9506784
 struct RoundedCorner: Shape {
-    internal init(tl: CGFloat = 0.0, tr: CGFloat = 0.0, bl: CGFloat = 0.0, br: CGFloat = 0.0) {
-        self.tl = tl
-        self.tr = tr
-        self.bl = bl
-        self.br = br
-    }
-
     init(radius: CGFloat, corners: RectCorner) {
         if corners.contains(.bottomLeft) {
             bl = radius
