@@ -89,7 +89,7 @@ public struct SimpleStandardKeyboard: View, ThemeableView {
             VStack(spacing: 10) {
                 if settings.showNumbers {
                     numbersRow
-                        .padding(.bottom)
+                        .padding(.bottom, 5)
                 }
                 keyboardRows
                 spaceRow

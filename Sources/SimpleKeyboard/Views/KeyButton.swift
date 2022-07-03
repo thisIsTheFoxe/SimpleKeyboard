@@ -33,7 +33,7 @@ struct ShiftKeyButton: View {
         .padding(10)
         .foregroundColor(.primary)
         .font(.headline.weight(.semibold))
-        .frame(height: 45)
+        .frame(height: 40)
         .background(Color.black.opacity(0.4))
         .cornerRadius(5)
     }
@@ -54,7 +54,7 @@ struct KeyButton: View, ClickableKey {
                 .fixedSize()
                 .scaledToFit()
                 .scaleEffect(0.75)
-                .frame(height: 45)
+                .frame(height: 40)
                 .frame(minWidth: 20, idealWidth: .infinity, maxWidth: .infinity)
                 .foregroundColor(.primary)
                 .background(colorScheme.keyboardKeyColor)
@@ -75,7 +75,7 @@ struct FRAccentKeyButton: View {
                 .foregroundColor(.primary)
                 .font(.system(size: 25))
                 .padding(5)
-                .frame(height: 45)
+                .frame(height: 40)
                 .frame(minWidth: 20, idealWidth: 25, maxWidth: 25)
                 .background(Color.black.opacity(0.4))
                 .cornerRadius(5)
@@ -112,6 +112,7 @@ struct SpaceKeyButton: View, ClickableKey {
         Button(action: { self.text.append(" "); didClick() }) {
             Text("space", bundle: .module)
                 .padding()
+                .frame(height: 50)
                 .foregroundColor(.primary)
                 .frame(maxWidth: .infinity)
                 .background(colorScheme.keyboardKeyColor)
@@ -136,8 +137,12 @@ struct DeleteKeyButton: View {
             }
         }
         .padding(10)
+        .overlay(
+            RoundedRectangle(cornerRadius: 7)
+                .stroke(Color.primary, lineWidth: 4)
+        )
         .foregroundColor(.primary)
-        .frame(height: 45)
+        .frame(height: 40)
         .font(Font.headline.weight(.semibold))
         .background(Color.black.opacity(0.4))
         .cornerRadius(7)
@@ -151,6 +156,7 @@ struct ActionKeyButton: View {
     var body: some View {
         Button(action: self.action) {
             icon.view.padding()
+                .frame(height: 50)
                 .foregroundColor(.white)
                 .frame(minWidth: 100, idealWidth: .infinity, maxWidth: .infinity)
                 .background(Color.blue).cornerRadius(7)
