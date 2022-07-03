@@ -31,7 +31,7 @@ extension View where Self: ThemeableView {
 
 extension ColorScheme {
     var keyboardKeyColor: Color {
-        self == .dark ? .gray : .white
+        self == .dark ? Color(UIColor.darkGray) : .white
     }
 }
 
