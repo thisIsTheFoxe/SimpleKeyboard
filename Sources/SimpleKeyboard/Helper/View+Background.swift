@@ -17,6 +17,14 @@ protocol ThemeableView {
 
 #if canImport(UIKit)
 import UIKit
+typealias RectCorner = UIRectCorner
+private typealias PlatformColor = UIColor
+#else
+
+#if canImport(AppKit)
+import AppKit
+private typealias PlatformColor = NSColor
+extension NSColor { static var systemGray3: NSColor { NSColor.systemGray } }
 #endif
 
 extension View where Self: ThemeableView {
@@ -31,21 +39,9 @@ extension View where Self: ThemeableView {
 
 extension ColorScheme {
     var keyboardKeyColor: Color {
-        self == .dark ? Color(UIColor.darkGray) : .white
+        self == .dark ? Color(PlatformColor.darkGray) : .white
     }
 }
-
-#if canImport(UIKit)
-import UIKit
-typealias RectCorner = UIRectCorner
-private typealias PlatformColor = UIColor
-#else
-
-#if canImport(AppKit)
-import AppKit
-private typealias PlatformColor = NSColor
-extension NSColor { static var systemGray3: NSColor { NSColor.systemGray } }
-#endif
 
 public struct RectCorner: OptionSet {
     public var rawValue: UInt
