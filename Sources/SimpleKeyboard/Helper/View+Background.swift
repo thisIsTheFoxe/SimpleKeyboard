@@ -17,11 +17,8 @@ protocol ThemeableView {
 
 #if canImport(UIKit)
 import UIKit
-typealias RectCorner = UIRectCorner
 private typealias PlatformColor = UIColor
-#else
-
-#if canImport(AppKit)
+#elseif canImport(AppKit)
 import AppKit
 private typealias PlatformColor = NSColor
 extension NSColor { static var systemGray3: NSColor { NSColor.systemGray } }
@@ -59,7 +56,6 @@ public struct RectCorner: OptionSet {
 
     public static var allCorners: RectCorner { [.topRight, .topLeft, .bottomLeft, .bottomRight] }
 }
-#endif
 
 extension View {
     func cornerRadius(_ radius: CGFloat, corners: RectCorner) -> some View {
