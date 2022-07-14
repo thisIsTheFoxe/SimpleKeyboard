@@ -95,6 +95,7 @@ final class SimpleKeyboardTests: XCTestCase {
         let action = ActionKeyButton(icon: .done) {
             expect.fulfill()
         }
+        XCTAssert(action.icon, .done)
 
         action.action()
         XCTAssertNotNil(action.body)

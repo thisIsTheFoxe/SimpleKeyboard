@@ -10,6 +10,7 @@ import SwiftUI
 public struct SimpleKeyboard: View, ThemeableView {
     var theme: KeyboardTheme
     var keys: [[String]]
+    var actionButton: Icon?
     @Binding var isShown: Bool
     @Binding var text: String
     var action: (() -> Void)?
@@ -19,12 +20,14 @@ public struct SimpleKeyboard: View, ThemeableView {
         textInput: Binding<String>,
         isShown: Binding<Bool> = .constant(true),
         theme: KeyboardTheme = .system,
+        actionButton: Icon? = .done,
         action: (() -> Void)? = nil) {
             self.keys = keys
             self.theme = theme
             self._isShown = isShown
             self._text = textInput
             self.action = action
+            self.actionButton = actionButton
         }
 
     var content: some View {
@@ -37,8 +40,10 @@ public struct SimpleKeyboard: View, ThemeableView {
                     }
                 }
                 HStack {
-                    ActionKeyButton(icon: .done) {
-                        self.action?()
+                    if let actionButton = actionButton {
+                        ActionKeyButton(icon: actionButton) {
+                            self.action?()
+                        }
                     }
                 }
             }

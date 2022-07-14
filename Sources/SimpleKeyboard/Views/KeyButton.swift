@@ -164,7 +164,7 @@ struct ActionKeyButton: View {
     }
 }
 
-enum Icon {
+public enum Icon {
     case done, search, go
 
     var view: some View {

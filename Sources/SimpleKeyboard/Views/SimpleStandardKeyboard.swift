@@ -25,8 +25,10 @@ public struct SimpleStandardKeyboard: View, ThemeableView {
             if settings.showSpace {
                 SpaceKeyButton(text: $settings.text)
             }
-            ActionKeyButton(icon: .done) {
-                self.settings.action?()
+            if let actionIcon = settings.actionButton {
+                ActionKeyButton(icon: actionIcon) {
+                    self.settings.action?()
+                }
             }
         }
     }
@@ -108,11 +110,12 @@ struct SimpleStandardKeyboard_Previews: PreviewProvider {
                 Spacer()
                 SimpleStandardKeyboard(
                     settings: KeyboardSettings(
-                        language: .russian,
+                        language: .english,
                         textInput: nil,
                         theme: .system,
+                        actionButton: .search,
                         showNumbers: true,
-                        showSpace: true,
+                        showSpace: false,
                         isUpperCase: true))
                     .environment(\.locale, .init(identifier: "ru"))
 //                    .preferredColorScheme(.dark)

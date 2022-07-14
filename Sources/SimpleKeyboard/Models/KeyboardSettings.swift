@@ -61,6 +61,9 @@ public class KeyboardSettings: ObservableObject {
 
     var theme: KeyboardTheme
 
+    /// `nil` mean there is no action icon
+    var actionButton: Icon?
+
     public var textInput: SimpleKeyboardInput?
     public var action: (() -> Void)?
 
@@ -78,8 +81,9 @@ public class KeyboardSettings: ObservableObject {
         language: Language,
         textInput: SimpleKeyboardInput?,
         theme: KeyboardTheme = .system,
+        actionButton: Icon? = .done,
         showNumbers: Bool = false,
-        showSpace: Bool = false,
+        showSpace: Bool = true,
         isUpperCase: Bool? = nil,
         action: (() -> Void)? = nil) {
             self.textInput = textInput
@@ -89,6 +93,7 @@ public class KeyboardSettings: ObservableObject {
             self.showNumbers = showNumbers
             self.showSpace = showSpace
             self.isUpperCase = isUpperCase
+            self.actionButton = actionButton
         }
 
     func changeTextInput(to newInput: SimpleKeyboardInput) {
