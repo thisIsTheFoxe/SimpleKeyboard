@@ -57,9 +57,9 @@ public class KeyboardSettings: ObservableObject {
         }
     }
 
-    @Published var language: Language
+    @Published public var language: Language
 
-    var theme: KeyboardTheme
+    public var theme: KeyboardTheme
 
     /// `nil` mean there is no action icon
     var actionButton: Icon?
@@ -67,13 +67,13 @@ public class KeyboardSettings: ObservableObject {
     public var textInput: SimpleKeyboardInput?
     public var action: (() -> Void)?
 
-    @Published var isShown = true
+    @Published public var isShown = true
 
-    @Published var showNumbers: Bool
-    @Published var showSpace: Bool
+    @Published public var showNumbers: Bool
+    @Published public var showSpace: Bool
 
     /// `nil` mean there is no need to switch, so there will be no shift-key
-    @Published var isUpperCase: Bool?
+    @Published public var isUpperCase: Bool?
 
     /// `textInput` should be `nil` when working directly with SwiftUI,
     /// in that case you would bind your input directly to the `textInput` of the Keyboard
