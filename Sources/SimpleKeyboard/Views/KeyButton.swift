@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  KeyButton.swift
 //  
 //
 //  Created by Henrik Storch on 12/24/19.
@@ -7,38 +7,59 @@
 
 import SwiftUI
 
+protocol ClickableKey {
+    func didClick()
+}
+
+extension ClickableKey {
+    func didClick() {
+        #if canImport(UIKit)
+        UIDevice.current.playInputClick()
+        #endif
+    }
+}
+
 struct ShiftKeyButton: View {
     @Binding var isUpperCase: Bool!
 
     var body: some View {
-        AnyView(Button(action: { self.isUpperCase?.toggle() }) { () -> AnyView in
-            #if !targetEnvironment(macCatalyst)
-            return AnyView(Text(isUpperCase! ? "Up": "lw", bundle: .module))
-            #else
-            return AnyView(Image(systemName: isUpperCase ? "shift.fill" : "shift").imageScale(.large))
-            #endif
-        })
+        Button(action: { self.isUpperCase?.toggle() }) {
+            if #available(iOS 14, macOS 11, *) {
+                AnyView(Image(systemName: isUpperCase ? "shift.fill" : "shift"))
+            } else {
+                AnyView(Text(isUpperCase! ? "Up": "lw", bundle: .module))
+            }
+        }
+        .padding(10)
         .foregroundColor(.primary)
-        .font(Font.headline.weight(.semibold))
-        .padding()
-        .background(Color.gray.opacity(0.5))
+        .font(.headline.weight(.semibold))
+        .frame(height: 40)
+        .background(Color.black.opacity(0.4))
         .cornerRadius(5)
     }
 }
 
-struct KeyButton: View {
+struct KeyButton: View, ClickableKey {
     @Binding var text: String
     var letter: String
+    @Environment(\.colorScheme) var colorScheme
 
     var body: some View {
-        Button(action: { self.text.append(self.letter) }) {
+        Button(action: {
+            self.text.append(self.letter)
+            didClick()
+        }) {
             Text(letter)
-                .foregroundColor(.primary)
                 .font(.system(size: 25))
-                .padding(5)
-                .frame(minWidth: 25)
-                .background(Color.gray.opacity(0.5))
+                .fixedSize()
+                .scaledToFit()
+                .scaleEffect(0.75)
+                .frame(height: 40)
+                .frame(minWidth: 20, idealWidth: .infinity, maxWidth: .infinity)
+                .foregroundColor(.primary)
+                .background(colorScheme.keyboardKeyColor)
                 .cornerRadius(5)
+                .shadow(color: .black, radius: 0, y: 1)
         }
     }
 }
@@ -54,9 +75,11 @@ struct FRAccentKeyButton: View {
                 .foregroundColor(.primary)
                 .font(.system(size: 25))
                 .padding(5)
-                .frame(minWidth: 25)
-                .background(Color.gray.opacity(0.5))
+                .frame(height: 40)
+                .frame(minWidth: 20, idealWidth: 25, maxWidth: 25)
+                .background(Color.black.opacity(0.4))
                 .cornerRadius(5)
+                .layoutPriority(10)
         }
     }
 
@@ -81,14 +104,20 @@ struct FRAccentKeyButton: View {
     }
 }
 
-struct SpaceKeyButton: View {
+struct SpaceKeyButton: View, ClickableKey {
     @Binding var text: String
+    @Environment(\.colorScheme) var colorScheme
 
     var body: some View {
-        Button(action: { self.text.append(" ") }) {
-            Text("space", bundle: .module).padding().padding(.horizontal, 75)
+        Button(action: { self.text.append(" "); didClick() }) {
+            Text("space", bundle: .module)
+                .padding()
+                .frame(height: 50)
                 .foregroundColor(.primary)
-                .background(Color.gray.opacity(0.5)).cornerRadius(7)
+                .frame(maxWidth: .infinity)
+                .background(colorScheme.keyboardKeyColor)
+                .cornerRadius(7)
+                .layoutPriority(2)
         }
     }
 }
@@ -97,21 +126,26 @@ struct DeleteKeyButton: View {
     @Binding var text: String
 
     var body: some View {
-        AnyView(Button(action: {
+        Button(action: {
             guard !self.text.isEmpty else { return }
             _ = self.text.removeLast()
-        }) { () -> AnyView in
-            #if !targetEnvironment(macCatalyst)
-            return AnyView(Text("⌫"))
-            #else
-            return AnyView(Image(systemName: "delete.left")
-                .foregroundColor(.primary)
-                .imageScale(.large)
-                .font(Font.headline.weight(.semibold))
-                .padding(10)
-                .background(Color.gray.opacity(0.5)).cornerRadius(7))
-            #endif
-        })
+        }) {
+            if #available(iOS 14, macOS 11, *) {
+                AnyView(Image(systemName: "delete.left"))
+            } else {
+                AnyView(Text("⌫"))
+            }
+        }
+        .padding(10)
+        .overlay(
+            RoundedRectangle(cornerRadius: 7)
+                .stroke(Color.primary, lineWidth: 4)
+        )
+        .foregroundColor(.primary)
+        .frame(height: 40)
+        .font(Font.headline.weight(.semibold))
+        .background(Color.black.opacity(0.4))
+        .cornerRadius(7)
     }
 }
 
@@ -122,13 +156,15 @@ struct ActionKeyButton: View {
     var body: some View {
         Button(action: self.action) {
             icon.view.padding()
+                .frame(height: 50)
                 .foregroundColor(.white)
-            .background(Color.blue).cornerRadius(7)
+                .frame(minWidth: 100, idealWidth: .infinity, maxWidth: .infinity)
+                .background(Color.blue).cornerRadius(7)
         }
     }
 }
 
-enum Icon {
+public enum Icon {
     case done, search, go
 
     var view: some View {

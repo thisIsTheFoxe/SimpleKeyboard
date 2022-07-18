@@ -6,8 +6,8 @@ import PackageDescription
 let package = Package(
     name: "SimpleKeyboard",
     defaultLocalization: "en",
-    //to be fair, watchOS support is pretty stupid, if you need it please open an issue...
-    platforms: [.iOS(SupportedPlatform.IOSVersion.v13), .macOS(SupportedPlatform.MacOSVersion.v10_15)],
+    // to be fair, watchOS support for this keyboard is not very useful, if you need it please open an issue...
+    platforms: [.iOS(SupportedPlatform.IOSVersion.v13), .macOS(SupportedPlatform.MacOSVersion.v11)],
     products: [
         // Products define the executables and libraries produced by a package, and make them visible to other packages.
         .library(
@@ -15,7 +15,6 @@ let package = Package(
             targets: ["SimpleKeyboard"])
     ],
     dependencies: [
-        // .package(url: /* package url */, from: "1.0.0"),
     ],
     targets: [
         // Targets can depend on other targets.
