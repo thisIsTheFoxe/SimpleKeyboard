@@ -24,7 +24,9 @@ struct ShiftKeyButton: View {
 
     var body: some View {
         Button(action: { self.isUpperCase?.toggle() }) {
-            if #available(iOS 14, macOS 11, *) {
+            if #available(iOS 15, macOS 12, *) {
+                AnyView(Image(systemName: "delete.left").dynamicTypeSize(.large))
+            } else if #available(iOS 14, macOS 11, *) {
                 AnyView(Image(systemName: isUpperCase ? "shift.fill" : "shift"))
             } else {
                 AnyView(Text(isUpperCase! ? "Up": "lw", bundle: .module))
@@ -110,15 +112,20 @@ struct SpaceKeyButton: View, ClickableKey {
 
     var body: some View {
         Button(action: { self.text.append(" "); didClick() }) {
-            Text("space", bundle: .module)
-                .padding()
-                .frame(height: 50)
-                .foregroundColor(.primary)
-                .frame(maxWidth: .infinity)
-                .background(colorScheme.keyboardKeyColor)
-                .cornerRadius(7)
-                .layoutPriority(2)
+            if #available(iOS 15.0, *) {
+                AnyView(Text("space", bundle: .module)
+                    .dynamicTypeSize(.large))
+            } else {
+                AnyView(Text("space", bundle: .module))
+            }
         }
+        .padding()
+        .frame(height: 50)
+        .foregroundColor(.primary)
+        .frame(idealWidth: .infinity, maxWidth: .infinity)
+        .background(colorScheme.keyboardKeyColor)
+        .cornerRadius(7)
+        .layoutPriority(2)
     }
 }
 
@@ -130,7 +137,9 @@ struct DeleteKeyButton: View {
             guard !self.text.isEmpty else { return }
             _ = self.text.removeLast()
         }) {
-            if #available(iOS 14, macOS 11, *) {
+            if #available(iOS 15, macOS 12, *) {
+                AnyView(Image(systemName: "delete.left").dynamicTypeSize(.large))
+            } else if #available(iOS 14, macOS 11, *) {
                 AnyView(Image(systemName: "delete.left"))
             } else {
                 AnyView(Text("⌫"))
@@ -155,12 +164,16 @@ struct ActionKeyButton: View {
 
     var body: some View {
         Button(action: self.action) {
-            icon.view.padding()
-                .frame(height: 50)
-                .foregroundColor(.white)
-                .frame(minWidth: 100, idealWidth: .infinity, maxWidth: .infinity)
-                .background(Color.blue).cornerRadius(7)
+            if #available(iOS 15.0, *) {
+                AnyView(icon.view.padding().dynamicTypeSize(.large))
+            } else {
+                icon.view.padding()
+            }
         }
+        .frame(height: 50)
+        .foregroundColor(.white)
+        .frame(minWidth: 100, maxWidth: .infinity)
+        .background(Color.blue).cornerRadius(7)
     }
 }
 
@@ -171,11 +184,11 @@ public enum Icon {
         switch self {
         case .done: return AnyView(Text("Done!", bundle: .module))
         case .search:
-            #if !targetEnvironment(macCatalyst)
-            return AnyView(Text("Search", bundle: .module))
-            #else
-            return AnyView(Image(systemName: "magnifyingglass"))
-            #endif
+            if #available(iOS 14, macOS 11, *) {
+                return AnyView(Image(systemName: "magnifyingglass"))
+            }else {
+                return AnyView(Text("Search", bundle: .module))
+            }
         case .go: return AnyView(Text("Go!", bundle: .module))
         }
     }
