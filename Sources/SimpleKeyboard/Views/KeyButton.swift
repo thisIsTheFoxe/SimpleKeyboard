@@ -114,7 +114,7 @@ struct SpaceKeyButton: View, ClickableKey {
 
     var content: some View {
         let spaceText = Text("space", bundle: .module)
-        if #available(iOS 15.0, *) {
+        if #available(iOS 15.0, macOS 12, *) {
             return AnyView(spaceText.dynamicTypeSize(.large))
         } else {
             return AnyView(spaceText)
@@ -170,7 +170,7 @@ struct ActionKeyButton: View {
     var action: () -> Void
 
     var iconView: some View {
-        if #available(iOS 15.0, *), #available(macOS 12.0, *) {
+        if #available(iOS 15.0, macOS 12, *) {
             return AnyView(icon.view.dynamicTypeSize(.large))
         } else {
             return icon.view
