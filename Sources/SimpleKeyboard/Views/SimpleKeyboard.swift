@@ -66,7 +66,8 @@ struct SimpleKeyboard_Previews: PreviewProvider {
                 SimpleKeyboard(
                     keys: [["a", "b", "c", "q", "w", "f", "m", "m"], ["d", "e", "f"]],
                     textInput: .constant(""),
-                    theme: .floating)
+                    theme: .floating,
+                    actionButton: .go)
             }
         }
 //        .preferredColorScheme(.dark)
