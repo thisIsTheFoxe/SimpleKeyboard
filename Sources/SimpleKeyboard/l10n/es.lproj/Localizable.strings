@@ -1,11 +1,18 @@
-"space" = "espacio";
-
-"Up" = "Ma";
-
-"lw" = "mi";
-
+/* (No Comment) */
 "Done!" = "¡Hecho!";
 
+/* (No Comment) */
+"Go!" = "ir";
+
+/* lower case */
+"lw" = "mi";
+
+/* (No Comment) */
 "Search" = "buscar";
 
-"Go!" = "ir";
+/* (No Comment) */
+"space" = "espacio";
+
+/* Upper Case */
+"Up" = "Ma";
+
