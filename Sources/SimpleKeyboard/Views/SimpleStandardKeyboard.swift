@@ -24,6 +24,7 @@ public struct SimpleStandardKeyboard: View, ThemeableView {
         HStack {
             if settings.showSpace {
                 SpaceKeyButton(text: $settings.text)
+                    .layoutPriority(2)
             }
             if let actionIcon = settings.actionButton {
                 ActionKeyButton(icon: actionIcon) {
@@ -108,6 +109,15 @@ struct SimpleStandardKeyboard_Previews: PreviewProvider {
             LinearGradient(colors: [.red, .green, .purple], startPoint: .bottomLeading, endPoint: .topTrailing)
             VStack {
                 Spacer()
+                SimpleStandardKeyboard(
+                    settings: KeyboardSettings(
+                        language: .english,
+                        textInput: nil,
+                        theme: .system,
+                        actionButton: .search,
+                        showNumbers: true,
+                        showSpace: true,
+                        isUpperCase: true))
                 SimpleStandardKeyboard(
                     settings: KeyboardSettings(
                         language: .english,

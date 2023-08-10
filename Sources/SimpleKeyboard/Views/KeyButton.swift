@@ -24,7 +24,10 @@ struct ShiftKeyButton: View {
 
     var body: some View {
         Button(action: { self.isUpperCase?.toggle() }) {
-            if #available(iOS 14, macOS 11, *) {
+            if #available(iOS 15, macOS 12, *) {
+                AnyView(Image(systemName: isUpperCase ? "shift.fill" : "shift")
+                    .dynamicTypeSize(.large))
+            } else if #available(iOS 14, macOS 11, *) {
                 AnyView(Image(systemName: isUpperCase ? "shift.fill" : "shift"))
             } else {
                 AnyView(Text(isUpperCase! ? "Up": "lw", bundle: .module))
@@ -80,6 +83,7 @@ struct FRAccentKeyButton: View {
                 .background(Color.black.opacity(0.4))
                 .cornerRadius(5)
                 .layoutPriority(10)
+                .shadow(color: .black, radius: 0, y: 1)
         }
     }
 
@@ -108,16 +112,26 @@ struct SpaceKeyButton: View, ClickableKey {
     @Binding var text: String
     @Environment(\.colorScheme) var colorScheme
 
+    var content: some View {
+        let spaceText = Text("space", bundle: .module)
+        if #available(iOS 15.0, macOS 12, *) {
+            return AnyView(spaceText.dynamicTypeSize(.large))
+        } else {
+            return AnyView(spaceText)
+        }
+    }
+
     var body: some View {
         Button(action: { self.text.append(" "); didClick() }) {
-            Text("space", bundle: .module)
+            content
                 .padding()
+                .frame(idealWidth: .infinity, maxWidth: .infinity)
                 .frame(height: 50)
                 .foregroundColor(.primary)
-                .frame(maxWidth: .infinity)
                 .background(colorScheme.keyboardKeyColor)
                 .cornerRadius(7)
                 .layoutPriority(2)
+                .shadow(color: .black, radius: 1, y: 1)
         }
     }
 }
@@ -130,7 +144,9 @@ struct DeleteKeyButton: View {
             guard !self.text.isEmpty else { return }
             _ = self.text.removeLast()
         }) {
-            if #available(iOS 14, macOS 11, *) {
+            if #available(iOS 15, macOS 12, *) {
+                AnyView(Image(systemName: "delete.left").dynamicTypeSize(.large))
+            } else if #available(iOS 14, macOS 11, *) {
                 AnyView(Image(systemName: "delete.left"))
             } else {
                 AnyView(Text("⌫"))
@@ -153,13 +169,24 @@ struct ActionKeyButton: View {
     @State var icon: Icon
     var action: () -> Void
 
+    var iconView: some View {
+        if #available(iOS 15.0, macOS 12, *) {
+            return AnyView(icon.view.dynamicTypeSize(.large))
+        } else {
+            return icon.view
+        }
+    }
+
     var body: some View {
         Button(action: self.action) {
-            icon.view.padding()
+            iconView
+                .padding()
+                .frame(minWidth: 100, maxWidth: .infinity)
                 .frame(height: 50)
                 .foregroundColor(.white)
-                .frame(minWidth: 100, idealWidth: .infinity, maxWidth: .infinity)
-                .background(Color.blue).cornerRadius(7)
+                .background(Color.blue)
+                .cornerRadius(7)
+                .shadow(color: .black, radius: 2, y: 2)
         }
     }
 }
@@ -171,11 +198,11 @@ public enum Icon {
         switch self {
         case .done: return AnyView(Text("Done!", bundle: .module))
         case .search:
-            #if !targetEnvironment(macCatalyst)
-            return AnyView(Text("Search", bundle: .module))
-            #else
-            return AnyView(Image(systemName: "magnifyingglass"))
-            #endif
+            if #available(iOS 14, macOS 11, *) {
+                return AnyView(Image(systemName: "magnifyingglass"))
+            }else {
+                return AnyView(Text("Search", bundle: .module))
+            }
         case .go: return AnyView(Text("Go!", bundle: .module))
         }
     }

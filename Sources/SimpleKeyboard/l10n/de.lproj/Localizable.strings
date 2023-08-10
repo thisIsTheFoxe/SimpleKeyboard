@@ -1,11 +1,18 @@
-"space" = "Leertaste";
-
-"Up" = "Gr";
-
-"lw" = "kl";
-
+/* (No Comment) */
 "Done!" = "Fertig!";
 
+/* (No Comment) */
+"Go!" = "Los!";
+
+/* lower case */
+"lw" = "kl";
+
+/* (No Comment) */
 "Search" = "Suchen";
 
-"Go!" = "Los!";
+/* (No Comment) */
+"space" = "Leertaste";
+
+/* Upper Case */
+"Up" = "Gr";
+
