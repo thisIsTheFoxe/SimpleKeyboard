@@ -40,7 +40,7 @@ public struct SimpleKeyboard: View, ThemeableView {
                     }
                 }
                 HStack {
-                    if let actionButton = actionButton {
+                    if let actionButton {
                         ActionKeyButton(icon: actionButton) {
                             self.action?()
                         }

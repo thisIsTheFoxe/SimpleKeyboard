@@ -63,10 +63,6 @@ public struct SimpleStandardKeyboard: View, ThemeableView {
                         Spacer(minLength: 2)
                             .frame(maxWidth: 15)
                             .layoutPriority(2)
-                        if settings.language == .french {
-                            FRAccentKeyButton(text: $settings.text)
-                            Spacer()
-                        }
                         DeleteKeyButton(text: self.$settings.text)
                     }
                 } else if idx == 1 {
@@ -82,7 +78,7 @@ public struct SimpleStandardKeyboard: View, ThemeableView {
         let rows = self.settings.language.rows(areUppercased: settings.isUpperCase ?? false)[index]
         return ForEach(rows, id: \.self) { key in
             Spacer(minLength: settings.language.spacing)
-            KeyButton(text: self.$settings.text, letter: key)
+            KeyButton(text: self.$settings.text, letter: key, alternateLetter: settings.language.alternateKeys[key])
             Spacer(minLength: settings.language.spacing)
         }
     }
@@ -120,7 +116,7 @@ struct SimpleStandardKeyboard_Previews: PreviewProvider {
                         isUpperCase: true))
                 SimpleStandardKeyboard(
                     settings: KeyboardSettings(
-                        language: .english,
+                        language: .spanish,
                         textInput: nil,
                         theme: .system,
                         actionButton: .search,

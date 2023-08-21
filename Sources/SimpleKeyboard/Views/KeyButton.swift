@@ -15,6 +15,7 @@ extension ClickableKey {
     func didClick() {
         #if canImport(UIKit)
         UIDevice.current.playInputClick()
+        //haptic
         #endif
     }
 }
@@ -45,13 +46,11 @@ struct ShiftKeyButton: View {
 struct KeyButton: View, ClickableKey {
     @Binding var text: String
     var letter: String
+    var alternateLetter: String?
     @Environment(\.colorScheme) var colorScheme
 
     var body: some View {
-        Button(action: {
-            self.text.append(self.letter)
-            didClick()
-        }) {
+        Button(action: { }) {
             Text(letter)
                 .font(.system(size: 25))
                 .fixedSize()
@@ -64,11 +63,23 @@ struct KeyButton: View, ClickableKey {
                 .cornerRadius(5)
                 .shadow(color: .black, radius: 0, y: 1)
         }
+        .highPriorityGesture(TapGesture().onEnded({ _ in
+            self.text.append(self.letter)
+            didClick()
+        }))
+        .simultaneousGesture(LongPressGesture().onEnded({ _ in
+            guard let alternateLetter else { return }
+            self.text.append(alternateLetter)
+            didClick()
+        }))
     }
 }
 
-struct FRAccentKeyButton: View {
+/// Replaces the last typed character with another (special) character. E.g. "a" -> "ä"
+struct AccentKeyButton: View {
     @Binding var text: String
+    /// The lookup for modified characters all lowercased. E.g. `["a": "ä"]`
+    var modifiedLetters: [Character: String]
 
     var body: some View {
         Button(action: {
@@ -88,22 +99,16 @@ struct FRAccentKeyButton: View {
     }
 
     internal func action() {
-        var modified = ""
-        let suffix = self.text.popLast()
-        switch suffix {
-        case "a": modified = "à"
-        case "e": modified = "é"
-        case "i": modified = "î"
-        case "u": modified = "û"
-        case "o": modified = "ô"
-        case "c": modified = "ç"
-        default:
-            modified = "’"
-            if let suffix = suffix {
-                self.text.append(suffix)
-            }
+        guard let suffix = self.text.popLast() else {
+            return text.append("’")
         }
 
+        guard var modified = modifiedLetters[Character(suffix.lowercased())] else {
+            return text.append(String(suffix) + "’")
+        }
+        if suffix.isUppercase {
+            modified = modified.uppercased()
+        }
         text.append(modified)
     }
 }

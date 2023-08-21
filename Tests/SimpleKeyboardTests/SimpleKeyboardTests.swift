@@ -163,17 +163,21 @@ final class SimpleKeyboardTests: XCTestCase {
         XCTAssertNotNil(SimpleStandardKeyboard_Previews.previews)
     }
 
-    func test_french_accent_key() {
-        let frButton = FRAccentKeyButton(text: $tester.text)
-        XCTAssertNotNil(frButton)
+    func test_accent_key() {
+        let accButton = AccentKeyButton(text: $tester.text, modifiedLetters: ["a": "à"])
+        XCTAssertNotNil(accButton)
 
-        for char in "aeiouc" {
-            tester.text.append(char)
-            frButton.action()
-            let modChar = String(tester.text.suffix(1))
-            print(modChar)
-            XCTAssertNotEqual(modChar, String(char))
-        }
+        tester.text.append("a")
+        accButton.action()
+        let modChar = String(tester.text.suffix(1))
+        print(modChar)
+        XCTAssertEqual(modChar, String("à"))
+        
+        tester.text.append("A")
+        accButton.action()
+        let modChar2 = String(tester.text.suffix(1))
+        print(modChar2)
+        XCTAssertEqual(modChar2, String("À"))
     }
 
     func test_corner_radius() {
@@ -207,7 +211,7 @@ final class SimpleKeyboardTests: XCTestCase {
         ("standard_keyboard_action_works", test_standard_keyboard_action_works),
         ("standard_keyboard_works", test_simple_keyboard_works),
         ("test_keyboard_preview", test_keyboard_preview),
-        ("test_french_accent_key", test_french_accent_key),
+        ("test_accent_key", test_accent_key),
         ("test_corner_radius", test_corner_radius),
         ("test_theming_modifier", test_theming_modifier)
     ]

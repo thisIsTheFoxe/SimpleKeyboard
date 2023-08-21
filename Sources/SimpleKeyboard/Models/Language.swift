@@ -23,6 +23,16 @@ public enum Language: CaseIterable {
 
     case english, german, spanish, french, russian, hindi
 
+    var alternateKeys: [String: String] {
+        switch self {
+        case .german: return ["a": "ä", "o": "ö", "u": "ü"]
+            // spanish also has ü
+        case .spanish: return ["e": "é", "a": "á", "i": "í", "o": "ó", "u": "ú", "n": "ñ"]
+        case .french: return ["e": "é", "a": "à", "u": "ù", "i": "î", "o": "ô", "c": "ç"]
+        default: return [:]
+        }
+    }
+
     func rows(areUppercased: Bool) -> [[String]] {
         var result = [[String]]()
         switch self {
@@ -34,14 +44,14 @@ public enum Language: CaseIterable {
             ]
         case .german:
             result = [
-                ["q", "w", "e", "r", "t", "z", "u", "i", "o", "p"],
-                ["a", "s", "d", "f", "g", "h", "j", "k", "l"],
+                ["q", "w", "e", "r", "t", "z", "u", "i", "o", "p"], // "ü"],
+                ["a", "s", "d", "f", "g", "h", "j", "k", "l"], // "ö", "ä"],
                 ["y", "x", "c", "v", "b", "n", "m"]
             ]
         case .spanish:
             result = [
                 ["q", "w", "e", "r", "t", "y", "u", "i", "o", "p"],
-                ["a", "s", "d", "f", "g", "h", "j", "k", "l", "ñ"],
+                ["a", "s", "d", "f", "g", "h", "j", "k", "l", "ü"],
                 ["z", "x", "c", "v", "b", "n", "m"]
             ]
         case .french:
