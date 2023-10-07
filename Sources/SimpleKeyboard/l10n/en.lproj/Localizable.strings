@@ -1,14 +1,14 @@
 /* spacebar */
-"space" = "अंतरिक्ष";
+"space" = "space";
 
 /* Uppercase abbreviation for button */
-"Up" = "ऊपर";
+"Up" = "Up";
 
 /* lowercase abbreviation for button */
-"lw" = "लो";
+"lw" = "lw";
 
-"Done!" = "हो गया!";
+"Done!" = "Done!";
 
-"Search" = "खोज";
+"Search" = "Search";
 
-"Go!" = "जाओ!";
+"Go!" = "Go!";

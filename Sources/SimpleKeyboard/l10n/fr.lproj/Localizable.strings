@@ -4,3 +4,17 @@
 /* No comment provided by engineer. */
 "⌫" = "⌫";
 
+/* barre d'espace */
+"space" = "espace";
+
+/* Abréviation en majuscules pour le bouton */
+"Up" = "Haut";
+
+/* Abréviation en minuscules pour le bouton */
+"lw" = "min";
+
+"Done!" = "Terminé !";
+
+"Search" = "Rechercher";
+
+"Go!" = "Allons-y !";
