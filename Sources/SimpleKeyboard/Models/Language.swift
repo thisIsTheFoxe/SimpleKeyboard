@@ -22,6 +22,7 @@ public enum Language: CaseIterable {
     }
 
     case english, german, spanish, french, russian, hindi
+    case swedish, danish, norwegian, finnish
 
     var alternateKeys: [String: String] {
         switch self {
@@ -29,6 +30,11 @@ public enum Language: CaseIterable {
             // spanish also has ü
         case .spanish: return ["e": "é", "a": "á", "i": "í", "o": "ó", "u": "ú", "n": "ñ"]
         case .french: return ["e": "é", "a": "à", "u": "ù", "i": "î", "o": "ô", "c": "ç"]
+            // Nynorsk uses several letters with diacritic signs: é, è, ê, ó, ò, â, and ô. The diacritic signs are not compulsory
+        case .danish, .norwegian: return ["e": "é"]
+        // Though not in the official alphabet, á is a Swedish (old-fashioned) letter. In native Swedish personal names, ü and è and others are also used.
+        case .swedish: return ["a":"á", "u":"ü", "e": "è"]
+        case .finnish: return ["s": "š", "z": "ž"]
         default: return [:]
         }
     }
@@ -72,6 +78,33 @@ public enum Language: CaseIterable {
                 ["ो", "े", "्", "ि", "ु", "प", "र", "क", "त", "च"],
                 ["ं", "म", "न", "व", "ल", "स", "य"]
             ]
+        case .swedish:
+            result = [
+                ["q", "w", "e", "r", "t", "y", "u", "i", "o", "p", "å"],
+                ["a", "s", "d", "f", "g", "h", "j", "k", "l", "ö", "ä"],
+                ["z", "x", "c", "v", "b", "n", "m"]
+            ]
+        case .danish:
+            result = [
+                ["q", "w", "e", "r", "t", "y", "u", "i", "o", "p", "å"],
+                ["a", "s", "d", "f", "g", "h", "j", "k", "l", "æ", "ø"],
+                ["z", "x", "c", "v", "b", "n", "m"]
+            ]
+
+        case .norwegian:
+            result = [
+                ["q", "w", "e", "r", "t", "y", "u", "i", "o", "p", "å"],
+                ["a", "s", "d", "f", "g", "h", "j", "k", "l", "ö", "ä"],
+                ["z", "x", "c", "v", "b", "n", "m"]
+            ]
+
+        case .finnish:
+            result = [
+                ["q", "w", "e", "r", "t", "y", "u", "i", "o", "p", "å"],
+                ["a", "s", "d", "f", "g", "h", "j", "k", "l", "ø", "æ"],
+                ["z", "x", "c", "v", "b", "n", "m"]
+            ]
+
         }
 
         if areUppercased {
