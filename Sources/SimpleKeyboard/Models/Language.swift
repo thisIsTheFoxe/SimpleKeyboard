@@ -23,6 +23,9 @@ public enum Language: CaseIterable {
 
     case english, german, spanish, french, russian, hindi
     case swedish, danish, norwegian, finnish
+    
+    /// General purpose layout using QWERTY with the common diacritics
+    case latinWithAccents
 
     var alternateKeys: [String: String] {
         switch self {
@@ -35,6 +38,17 @@ public enum Language: CaseIterable {
         // Though not in the official alphabet, á is a Swedish (old-fashioned) letter. In native Swedish personal names, ü and è and others are also used.
         case .swedish: return ["a":"á", "u":"ü", "e": "è"]
         case .finnish: return ["s": "š", "z": "ž"]
+        case .latinWithAccents:
+            
+            // 300 = Grave;         301 = Acute;
+            // 302 = Circumflex;    303 = Tilde;
+            // 308 = Diaeresis;     30A = Ring;
+            // 327 = Cedilla;       30C = Caron;
+            return [
+                "\u{0300}": "\u{0301}",
+                "\u{0302}": "\u{0303}",
+                "\u{0308}": "\u{030A}",
+                "\u{0327}": "\u{030C}",]
         default: return [:]
         }
     }
@@ -90,14 +104,12 @@ public enum Language: CaseIterable {
                 ["a", "s", "d", "f", "g", "h", "j", "k", "l", "æ", "ø"],
                 ["z", "x", "c", "v", "b", "n", "m"]
             ]
-
         case .norwegian:
             result = [
                 ["q", "w", "e", "r", "t", "y", "u", "i", "o", "p", "å"],
                 ["a", "s", "d", "f", "g", "h", "j", "k", "l", "ö", "ä"],
                 ["z", "x", "c", "v", "b", "n", "m"]
             ]
-
         case .finnish:
             result = [
                 ["q", "w", "e", "r", "t", "y", "u", "i", "o", "p", "å"],
@@ -105,10 +117,20 @@ public enum Language: CaseIterable {
                 ["z", "x", "c", "v", "b", "n", "m"]
             ]
 
+        case .latinWithAccents:
+            result = [
+                ["q", "w", "e", "r", "t", "y", "u", "i", "o", "p", "\u{0300}"],
+                ["a", "s", "d", "f", "g", "h", "j", "k", "l", "\u{0302}", "\u{0308}"],
+                ["z", "x", "c", "v", "b", "n", "m", "\u{0327}"]
+            ]
         }
 
         if areUppercased {
-            result = result.map { $0.map { $0.uppercased() } }
+            result = result.map { $0.map {
+                let upper = $0.uppercased()
+                if $0 != upper { return upper }
+                return alternateKeys[$0] ?? $0
+            } }
         }
 
         return result

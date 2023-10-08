@@ -116,7 +116,7 @@ struct SimpleStandardKeyboard_Previews: PreviewProvider {
                         isUpperCase: true))
                 SimpleStandardKeyboard(
                     settings: KeyboardSettings(
-                        language: .spanish,
+                        language: .latinWithAccents,
                         textInput: nil,
                         theme: .system,
                         actionButton: .search,
