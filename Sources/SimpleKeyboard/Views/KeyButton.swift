@@ -77,6 +77,7 @@ struct KeyButton: View, ClickableKey {
 }
 
 /// Replaces the last typed character with another (special) character. E.g. "a" -> "ä"
+@available(*, deprecated, message: "Use `Language.alternateKeys` instead")
 struct AccentKeyButton: View, ClickableKey {
     @Binding var text: String
     /// The lookup for modified characters all lowercased. E.g. `["a": "ä"]`
