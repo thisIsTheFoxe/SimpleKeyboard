@@ -34,6 +34,7 @@ public enum Language: CaseIterable {
         case .spanish: return ["e": "é", "a": "á", "i": "í", "o": "ó", "u": "ú", "n": "ñ"]
         case .french: return ["e": "é", "a": "à", "u": "ù", "i": "î", "o": "ô", "c": "ç"]
             // Nynorsk uses several letters with diacritic signs: é, è, ê, ó, ò, â, and ô. The diacritic signs are not compulsory
+            // Danish has no compulsory diacritics, but allows the use of an acute accent. Most often, an accent on e.
         case .danish, .norwegian: return ["e": "é"]
         // Though not in the official alphabet, á is a Swedish (old-fashioned) letter. In native Swedish personal names, ü and è and others are also used.
         case .swedish: return ["a":"á", "u":"ü", "e": "è"]
