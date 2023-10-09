@@ -51,7 +51,7 @@ struct KeyButton: View, ClickableKey {
     @Environment(\.colorScheme) var colorScheme
 
     var body: some View {
-        Button(action: { }) {
+        Button(action: { /* use Gesture */}) {
             Text(letter)
                 .font(.system(size: 25))
                 .fixedSize()

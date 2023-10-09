@@ -93,7 +93,7 @@ public enum Language: CaseIterable {
                 ["ो", "े", "्", "ि", "ु", "प", "र", "क", "त", "च"],
                 ["ं", "म", "न", "व", "ल", "स", "य"]
             ]
-        case .swedish:
+        case .swedish, .finnish:
             result = [
                 ["q", "w", "e", "r", "t", "y", "u", "i", "o", "p", "å"],
                 ["a", "s", "d", "f", "g", "h", "j", "k", "l", "ö", "ä"],
@@ -106,12 +106,6 @@ public enum Language: CaseIterable {
                 ["z", "x", "c", "v", "b", "n", "m"]
             ]
         case .norwegian:
-            result = [
-                ["q", "w", "e", "r", "t", "y", "u", "i", "o", "p", "å"],
-                ["a", "s", "d", "f", "g", "h", "j", "k", "l", "ö", "ä"],
-                ["z", "x", "c", "v", "b", "n", "m"]
-            ]
-        case .finnish:
             result = [
                 ["q", "w", "e", "r", "t", "y", "u", "i", "o", "p", "å"],
                 ["a", "s", "d", "f", "g", "h", "j", "k", "l", "ø", "æ"],
@@ -129,8 +123,7 @@ public enum Language: CaseIterable {
         if areUppercased {
             result = result.map { $0.map {
                 let upper = $0.uppercased()
-                if $0 != upper { return upper }
-                return alternateKeys[$0] ?? $0
+                return $0 != upper ? upper : alternateKeys[$0] ?? $0
             } }
         }
 
