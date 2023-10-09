@@ -94,7 +94,7 @@ public struct SimpleStandardKeyboard: View, ThemeableView {
                 spaceRow
             }
             .transition(.move(edge: .bottom).combined(with: .opacity))
-            .modifier(OuterKeyboardThemingModifier(theme: theme, backroundColor: keyboardBackground))
+            .modifier(OuterKeyboardThemingModifier(theme: theme))
         }
     }
 }
@@ -118,7 +118,7 @@ struct SimpleStandardKeyboard_Previews: PreviewProvider {
                     settings: KeyboardSettings(
                         language: .latinWithAccents,
                         textInput: nil,
-                        theme: .system,
+                        theme: .clear,
                         actionButton: .search,
                         showNumbers: true,
                         showSpace: false,
