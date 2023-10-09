@@ -193,10 +193,12 @@ final class SimpleKeyboardTests: XCTestCase {
     }
 
     func test_theming_modifier() {
-        let mod = OuterKeyboardThemingModifier(theme: .floating, backroundColor: Color.black)
-        let mod2 = OuterKeyboardThemingModifier(theme: .system, backroundColor: Color.black)
+        let mod = OuterKeyboardThemingModifier(theme: .floating)
+        let mod2 = OuterKeyboardThemingModifier(theme: .system)
+        let mod3 = OuterKeyboardThemingModifier(theme: .clear)
         XCTAssertNotNil(EmptyView().modifier(mod))
         XCTAssertNotNil(EmptyView().modifier(mod2))
+        XCTAssertNotNil(EmptyView().modifier(mod3))
     }
 
     static var allTests = [
