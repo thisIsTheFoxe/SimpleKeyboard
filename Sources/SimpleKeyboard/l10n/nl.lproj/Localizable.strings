@@ -4,13 +4,21 @@
 /* No comment provided by engineer. */
 "⌫" = "⌫";
 
-/* spacebar */
-"space" = "spatie";
-/* Uppercase abbreviation for button (3 char max.) */
-"Up" = "Bov";
+/* (No Comment) */
+"Done!" = "Klaar!";
+
+/* (No Comment) */
+"Go!" = "Ga!";
+
 /* lowercase abbreviation for button */
 "lw" = "lw";
 
-"Done!" = "Klaar!";
+/* (No Comment) */
 "Search" = "Zoeken";
-"Go!" = "Ga!";
+
+/* spacebar */
+"space" = "spatie";
+
+/* Uppercase abbreviation for button */
+"Up" = "Bov";
+

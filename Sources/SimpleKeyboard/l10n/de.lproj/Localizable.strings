@@ -4,15 +4,15 @@
 /* (No Comment) */
 "Go!" = "Los!";
 
-/* lower case */
+/* lowercase abbreviation for button */
 "lw" = "kl";
 
 /* (No Comment) */
 "Search" = "Suchen";
 
-/* (No Comment) */
+/* spacebar */
 "space" = "Leertaste";
 
-/* Upper Case */
+/* Uppercase abbreviation for button */
 "Up" = "Gr";
 

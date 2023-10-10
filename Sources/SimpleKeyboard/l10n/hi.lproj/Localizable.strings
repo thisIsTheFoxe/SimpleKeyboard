@@ -4,17 +4,21 @@
 /* No comment provided by engineer. */
 "⌫" = "⌫";
 
+/* (No Comment) */
+"Done!" = "हो गया!";
+
+/* (No Comment) */
+"Go!" = "जाओ!";
+
+/* lowercase abbreviation for button */
+"lw" = "लो";
+
+/* (No Comment) */
+"Search" = "खोज";
+
 /* spacebar */
 "space" = "अंतरिक्ष";
 
 /* Uppercase abbreviation for button */
 "Up" = "ऊपर";
 
-/* lowercase abbreviation for button */
-"lw" = "लो";
-
-"Done!" = "हो गया!";
-
-"Search" = "खोज";
-
-"Go!" = "जाओ!";
