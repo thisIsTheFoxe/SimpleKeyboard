@@ -8,7 +8,7 @@
 import SwiftUI
 
 public enum KeyboardTheme {
-    case system, floating
+    case system, floating, clear
 }
 
 protocol ThemeableView {
@@ -24,12 +24,15 @@ private typealias PlatformColor = NSColor
 extension NSColor { static var systemGray3: NSColor { NSColor.systemGray } }
 #endif
 
-extension View where Self: ThemeableView {
+extension KeyboardTheme {
+    @ViewBuilder
     var keyboardBackground: some View {
-        if #available(iOS 15.0, macOS 12.0, *) {
-            return AnyView(EmptyView().background(.ultraThinMaterial))
+        if self == .clear {
+            Color.clear
+        } else if #available(iOS 15.0, macOS 12.0, *) {
+            Rectangle().fill(.clear).background(.ultraThinMaterial)
         } else {
-            return AnyView(Color(PlatformColor.systemGray3.withAlphaComponent(0.75)))
+            Color(PlatformColor.systemGray3.withAlphaComponent(0.75))
         }
     }
 }

@@ -14,16 +14,18 @@ protocol ClickableKey {
 extension ClickableKey {
     func didClick() {
         #if canImport(UIKit)
+        let generator = UIImpactFeedbackGenerator(style: .light)
+        generator.impactOccurred()
         UIDevice.current.playInputClick()
         #endif
     }
 }
 
-struct ShiftKeyButton: View {
+struct ShiftKeyButton: View, ClickableKey {
     @Binding var isUpperCase: Bool!
 
     var body: some View {
-        Button(action: { self.isUpperCase?.toggle() }) {
+        Button(action: { self.isUpperCase?.toggle(); didClick() }) {
             if #available(iOS 15, macOS 12, *) {
                 AnyView(Image(systemName: isUpperCase ? "shift.fill" : "shift")
                     .dynamicTypeSize(.large))
@@ -45,13 +47,11 @@ struct ShiftKeyButton: View {
 struct KeyButton: View, ClickableKey {
     @Binding var text: String
     var letter: String
+    var alternateLetter: String?
     @Environment(\.colorScheme) var colorScheme
 
     var body: some View {
-        Button(action: {
-            self.text.append(self.letter)
-            didClick()
-        }) {
+        Button(action: { /* use Gesture */}) {
             Text(letter)
                 .font(.system(size: 25))
                 .fixedSize()
@@ -64,11 +64,24 @@ struct KeyButton: View, ClickableKey {
                 .cornerRadius(5)
                 .shadow(color: .black, radius: 0, y: 1)
         }
+        .highPriorityGesture(TapGesture().onEnded({ _ in
+            self.text.append(self.letter)
+            didClick()
+        }))
+        .simultaneousGesture(LongPressGesture().onEnded({ _ in
+            guard let alternateLetter else { return }
+            self.text.append(alternateLetter)
+            didClick()
+        }))
     }
 }
 
-struct FRAccentKeyButton: View {
+/// Replaces the last typed character with another (special) character. E.g. "a" -> "ä"
+@available(*, deprecated, message: "Use `Language.alternateKeys` instead")
+struct AccentKeyButton: View, ClickableKey {
     @Binding var text: String
+    /// The lookup for modified characters all lowercased. E.g. `["a": "ä"]`
+    var modifiedLetters: [Character: String]
 
     var body: some View {
         Button(action: {
@@ -88,22 +101,17 @@ struct FRAccentKeyButton: View {
     }
 
     internal func action() {
-        var modified = ""
-        let suffix = self.text.popLast()
-        switch suffix {
-        case "a": modified = "à"
-        case "e": modified = "é"
-        case "i": modified = "î"
-        case "u": modified = "û"
-        case "o": modified = "ô"
-        case "c": modified = "ç"
-        default:
-            modified = "’"
-            if let suffix = suffix {
-                self.text.append(suffix)
-            }
+        defer { didClick() }
+        guard let suffix = self.text.popLast() else {
+            return text.append("’")
         }
 
+        guard var modified = modifiedLetters[Character(suffix.lowercased())] else {
+            return text.append(String(suffix) + "’")
+        }
+        if suffix.isUppercase {
+            modified = modified.uppercased()
+        }
         text.append(modified)
     }
 }
@@ -136,13 +144,14 @@ struct SpaceKeyButton: View, ClickableKey {
     }
 }
 
-struct DeleteKeyButton: View {
+struct DeleteKeyButton: View, ClickableKey {
     @Binding var text: String
 
     var body: some View {
         Button(action: {
             guard !self.text.isEmpty else { return }
             _ = self.text.removeLast()
+            didClick()
         }) {
             if #available(iOS 15, macOS 12, *) {
                 AnyView(Image(systemName: "delete.left").dynamicTypeSize(.large))
@@ -165,7 +174,7 @@ struct DeleteKeyButton: View {
     }
 }
 
-struct ActionKeyButton: View {
+struct ActionKeyButton: View, ClickableKey {
     @State var icon: Icon
     var action: () -> Void
 
@@ -178,7 +187,7 @@ struct ActionKeyButton: View {
     }
 
     var body: some View {
-        Button(action: self.action) {
+        Button(action: { self.action(); didClick() }) {
             iconView
                 .padding()
                 .frame(minWidth: 100, maxWidth: .infinity)
@@ -200,7 +209,7 @@ public enum Icon {
         case .search:
             if #available(iOS 14, macOS 11, *) {
                 return AnyView(Image(systemName: "magnifyingglass"))
-            }else {
+            } else {
                 return AnyView(Text("Search", bundle: .module))
             }
         case .go: return AnyView(Text("Go!", bundle: .module))

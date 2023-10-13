@@ -1,11 +1,24 @@
-"space" = "Лертасте";
+/* No comment provided by engineer. */
+"´" = "´";
 
-"Up" = "Ве";
+/* No comment provided by engineer. */
+"⌫" = "⌫";
 
-"lw" = "ни";
-
+/* (No Comment) */
 "Done!" = "Готово!";
 
+/* (No Comment) */
+"Go!" = "Вперед!";
+
+/* lowercase abbreviation for button */
+"lw" = "Лw";
+
+/* (No Comment) */
 "Search" = "Поиск";
 
-"Go!" = "Вперед!";
+/* spacebar */
+"space" = "пробел";
+
+/* Uppercase abbreviation for button */
+"Up" = "Уп";
+
