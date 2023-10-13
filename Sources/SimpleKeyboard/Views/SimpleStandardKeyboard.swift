@@ -12,7 +12,7 @@ public struct SimpleStandardKeyboard: View, ThemeableView {
     
     @ViewBuilder
     var bgColor: some View {
-        if #available(iOS 16, *) {
+        if #available(iOS 15.0, macOS 12.0, *) {
             Rectangle().fill(.clear).background(.ultraThinMaterial)
         } else {
             Color.clear
