@@ -23,6 +23,7 @@ public enum Language: CaseIterable {
 
     case english, german, spanish, french, russian, hindi
     case swedish, danish, norwegian, finnish
+    case korean
     
     /// General purpose layout using QWERTY with the common diacritics
     case latinWithAccents
@@ -39,6 +40,7 @@ public enum Language: CaseIterable {
         // Though not in the official alphabet, á is a Swedish (old-fashioned) letter. In native Swedish personal names, ü and è and others are also used.
         case .swedish: return ["a":"á", "u":"ü", "e": "è"]
         case .finnish: return ["s": "š", "z": "ž"]
+        case .korean: return ["ㅂ":"ㅃ", "ㅈ":"ㅉ", "ㄷ":"ㄸ", "ㄱ":"ㄲ", "ㅅ":"ㅆ", "ㅐ":"ㅒ", "ㅔ":"ㅖ"]
         case .latinWithAccents:
             
             // 300 = Grave;         301 = Acute;
@@ -117,6 +119,12 @@ public enum Language: CaseIterable {
                 ["q", "w", "e", "r", "t", "y", "u", "i", "o", "p", "\u{0300}"],
                 ["a", "s", "d", "f", "g", "h", "j", "k", "l", "\u{0302}", "\u{0308}"],
                 ["z", "x", "c", "v", "b", "n", "m", "\u{0327}"]
+            ]
+        case .korean:
+            result = [
+                ["ㅂ","ㅈ","ㄷ","ㄱ","ㅅ","ㅛ","ㅕ","ㅑ","ㅐ","ㅔ"],
+                ["ㅁ","ㄴ","ㅇ","ㄹ","ㅎ","ㅗ","ㅓ","ㅏ","ㅣ"],
+                ["ㅋ","ㅌ","ㅊ","ㅍ","ㅠ","ㅜ","ㅡ"]
             ]
         }
 
