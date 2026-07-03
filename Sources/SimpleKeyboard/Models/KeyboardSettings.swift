@@ -51,8 +51,18 @@ extension UITextField: SimpleKeyboardInput {
 #endif
 
 public class KeyboardSettings: ObservableObject {
+    // When true, avoid mirroring text into SwiftUI bindings to prevent feedback loops
+    public var swiftUIMode: Bool = false
+
+    // Reentrancy guard for programmatic updates to text
+    private var isProgrammaticTextUpdate = false
+
     public var text: String = "" {
         didSet {
+            // In SwiftUI mode, do not mirror text back into the binding to avoid feedback loops
+            guard !swiftUIMode else { return }
+            // Prevent recursive updates when syncing from textInput
+            guard !isProgrammaticTextUpdate else { return }
             textInput?.replaceAll(with: text)
         }
     }
@@ -98,6 +108,12 @@ public class KeyboardSettings: ObservableObject {
 
     func changeTextInput(to newInput: SimpleKeyboardInput) {
         self.textInput = newInput
+        isProgrammaticTextUpdate = true
         self.text = newInput.currentText
+        isProgrammaticTextUpdate = false
+    }
+
+    public func enableSwiftUIMode() {
+        swiftUIMode = true
     }
 }
