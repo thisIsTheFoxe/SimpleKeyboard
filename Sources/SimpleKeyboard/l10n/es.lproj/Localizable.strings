@@ -1,18 +1,24 @@
+/* No comment provided by engineer. */
+"´" = "´";
+
+/* No comment provided by engineer. */
+"⌫" = "⌫";
+
 /* (No Comment) */
 "Done!" = "¡Hecho!";
 
 /* (No Comment) */
 "Go!" = "ir";
 
-/* lower case */
+/* lowercase abbreviation for button */
 "lw" = "mi";
 
 /* (No Comment) */
 "Search" = "buscar";
 
-/* (No Comment) */
+/* spacebar */
 "space" = "espacio";
 
-/* Upper Case */
+/* Uppercase abbreviation for button */
 "Up" = "Ma";
 

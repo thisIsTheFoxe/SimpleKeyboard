@@ -1,7 +1,10 @@
+/* spacebar */
 "space" = "space";
 
+/* Uppercase abbreviation for button */
 "Up" = "Up";
 
+/* lowercase abbreviation for button */
 "lw" = "lw";
 
 "Done!" = "Done!";

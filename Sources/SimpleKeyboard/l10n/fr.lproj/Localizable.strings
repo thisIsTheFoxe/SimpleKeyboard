@@ -1,11 +1,24 @@
+/* No comment provided by engineer. */
+"´" = "´";
+
+/* No comment provided by engineer. */
+"⌫" = "⌫";
+
+/* (No Comment) */
+"Done!" = "Terminé !";
+
+/* (No Comment) */
+"Go!" = "Allons-y !";
+
+/* lowercase abbreviation for button */
+"lw" = "min";
+
+/* (No Comment) */
+"Search" = "Rechercher";
+
+/* spacebar */
 "space" = "espace";
 
-"Up" = "Ma";
+/* Uppercase abbreviation for button */
+"Up" = "Haut";
 
-"lw" = "mi";
-
-"Done!" = "Fait!";
-
-"Search" = "Recherche";
-
-"Go!" = "Allez!";

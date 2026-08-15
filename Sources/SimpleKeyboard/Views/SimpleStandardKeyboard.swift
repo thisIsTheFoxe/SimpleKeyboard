@@ -9,6 +9,15 @@ import SwiftUI
 
 public struct SimpleStandardKeyboard: View, ThemeableView {
     var theme: KeyboardTheme { settings.theme }
+    
+    @ViewBuilder
+    var bgColor: some View {
+        if #available(iOS 15.0, macOS 12.0, *) {
+            Rectangle().fill(.clear).background(.ultraThinMaterial)
+        } else {
+            Color.clear
+        }
+    }
 
     @ObservedObject var settings: KeyboardSettings
 
@@ -63,10 +72,6 @@ public struct SimpleStandardKeyboard: View, ThemeableView {
                         Spacer(minLength: 2)
                             .frame(maxWidth: 15)
                             .layoutPriority(2)
-                        if settings.language == .french {
-                            FRAccentKeyButton(text: $settings.text)
-                            Spacer()
-                        }
                         DeleteKeyButton(text: self.$settings.text)
                     }
                 } else if idx == 1 {
@@ -82,7 +87,7 @@ public struct SimpleStandardKeyboard: View, ThemeableView {
         let rows = self.settings.language.rows(areUppercased: settings.isUpperCase ?? false)[index]
         return ForEach(rows, id: \.self) { key in
             Spacer(minLength: settings.language.spacing)
-            KeyButton(text: self.$settings.text, letter: key)
+            KeyButton(text: self.$settings.text, letter: key, alternateLetter: settings.language.alternateKeys[key])
             Spacer(minLength: settings.language.spacing)
         }
     }
@@ -98,7 +103,7 @@ public struct SimpleStandardKeyboard: View, ThemeableView {
                 spaceRow
             }
             .transition(.move(edge: .bottom).combined(with: .opacity))
-            .modifier(OuterKeyboardThemingModifier(theme: theme, backroundColor: keyboardBackground))
+            .modifier(OuterKeyboardThemingModifier(theme: theme))
         }
     }
 }
@@ -120,9 +125,9 @@ struct SimpleStandardKeyboard_Previews: PreviewProvider {
                         isUpperCase: true))
                 SimpleStandardKeyboard(
                     settings: KeyboardSettings(
-                        language: .english,
+                        language: .latinWithAccents,
                         textInput: nil,
-                        theme: .system,
+                        theme: .clear,
                         actionButton: .search,
                         showNumbers: true,
                         showSpace: false,

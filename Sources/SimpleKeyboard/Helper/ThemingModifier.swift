@@ -7,22 +7,21 @@
 
 import SwiftUI
 
-struct OuterKeyboardThemingModifier<Background: View>: ViewModifier {
+struct OuterKeyboardThemingModifier: ViewModifier {
     var theme: KeyboardTheme
-    var backroundColor: Background
 
     func body(content: Content) -> some View {
-        if theme == .system {
-            content
-                .padding(10)
-                .background(backroundColor)
-        } else if theme == .floating {
+        if theme == .floating {
             content
                 .cornerRadius(25, corners: [.bottomLeft, .bottomRight])
                 .padding(10)
-                .background(backroundColor)
+                .background(theme.keyboardBackground)
                 .cornerRadius(25)
                 .padding(10)
+        } else {
+            content
+                .padding(10)
+                .background(theme.keyboardBackground)
         }
     }
 }
